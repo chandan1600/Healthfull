@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "592276709717",
+    "firebase_url": "https://healthfull-19043.firebaseio.com",
+    "project_id": "healthfull-19043",
+    "storage_bucket": "healthfull-19043.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592276709717:android:997697e617449a2da30fdc",
+        "android_client_info": {
+          "package_name": "com.example.healthfull"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592276709717-11tl4afu6ctisuni76ngpcqn2cctmqmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB8LX-PrA-xkq3VRxS0OIOUY_4m1EVoRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592276709717-11tl4afu6ctisuni76ngpcqn2cctmqmo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
