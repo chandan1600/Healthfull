@@ -13,24 +13,11 @@ public class LoginPresenter implements LoginContract.Presenter, LoginContract.on
     public void login(String email, String password) {
         view.setInputEnabled(false);
         loginInteractor.performFirebaseLogin(email, password);
-
-//        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    FirebaseUser user = auth.getCurrentUser();
-//
-//                } else {
-//
-//                    view.setInputEnabled(true);
-//                }
-//            }
-//        });
     }
 
     @Override
-    public void onSuccess() {
-        view.onLoginSuccess();
+    public void onSuccess(String message) {
+        view.onLoginSuccess(message);
     }
 
     @Override
