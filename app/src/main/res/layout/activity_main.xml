@@ -113,17 +113,6 @@
         app:layout_constraintTop_toBottomOf="@+id/foodEntriesTextView" />
 
     <Button
-        android:id="@+id/cameraButton"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="126dp"
-        android:layout_height="103dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/ic_add_a_photo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
         android:id="@+id/profileButton"
         android:layout_width="127dp"
         android:layout_height="106dp"
@@ -132,5 +121,17 @@
         android:background="@drawable/ic_person"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/galleryButton"
+        android:layout_width="109dp"
+        android:layout_height="101dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="16dp"
+        android:background="#FFFFFF"
+        android:text="Gallery"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
