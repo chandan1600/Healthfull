@@ -1,2 +1,3 @@
 rootProject.name='Healthfull'
 include ':app'
+include ':lib'
