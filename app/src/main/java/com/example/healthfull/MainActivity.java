@@ -18,8 +18,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.healthfull.entries.NewFoodEntryActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Button cameraButton;
 
     Button galleryButton;
-
+    ImageButton addEntryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +67,16 @@ public class MainActivity extends AppCompatActivity {
             startActivity(startIntent);
 
         }}
-
         );
+
+        addEntryButton = findViewById(R.id.main_addButton);
+        addEntryButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), NewFoodEntryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
