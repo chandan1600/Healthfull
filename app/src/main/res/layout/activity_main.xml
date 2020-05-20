@@ -19,29 +19,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/rewardBarTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Reward Bar"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeUserTextView" />
-
     <ProgressBar
         android:id="@+id/rewardProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="330dp"
         android:layout_height="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/goalsTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rewardBarTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/rewardButton" />
 
     <ProgressBar
         android:id="@+id/goalsProgressBar"
@@ -85,6 +74,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="330dp"
         android:layout_height="55dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,6 +98,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="330dp"
         android:layout_height="55dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foodEntriesTextView" />
@@ -117,21 +108,41 @@
         android:layout_width="127dp"
         android:layout_height="106dp"
         android:layout_marginStart="35dp"
+        android:layout_marginTop="6dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/ic_person"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodEntryProgressBar" />
 
     <Button
         android:id="@+id/galleryButton"
         android:layout_width="109dp"
         android:layout_height="101dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="8dp"
         android:background="#FFFFFF"
         android:text="Gallery"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodEntryProgressBar"
+        app:layout_constraintVertical_bias="0.516" />
+
+    <Button
+        android:id="@+id/rewardButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#F6F5F5"
+        android:text="rewards"
+        app:layout_constraintBottom_toTopOf="@+id/rewardProgressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeUserTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

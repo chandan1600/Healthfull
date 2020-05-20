@@ -1,31 +1,14 @@
 package com.example.healthfull;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-
-import android.Manifest;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.healthfull.RewardsSystem.Rewards;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView selectedImage;
     ImageView galleryImageView;
     Button cameraButton;
-
+    Button rewardButton;
     Button galleryButton;
 
 
@@ -53,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         galleryButton.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-
             //intent - this is what we want to happen, android is going to try to make that happen
             Intent startIntent = new Intent(getApplicationContext(), Gallery.class);
 
@@ -62,14 +44,22 @@ public class MainActivity extends AppCompatActivity {
             //unbundle this info and use it
             startIntent.putExtra("com.example.quicklauncher.SOMETHING","HELLO WORLD!");
             startActivity(startIntent);
-
         }}
-
         );
+
+        rewardButton = findViewById(R.id.rewardButton);
+        rewardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRewardsPage();
+            }
+        });
+
     }
 
-
-
-
+    public void openRewardsPage() {
+        Intent intent = new Intent(this, Rewards.class);
+        startActivity(intent);
+    }
 
 }
