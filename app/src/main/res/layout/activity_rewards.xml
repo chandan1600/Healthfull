@@ -46,6 +46,12 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="redeem points"
+        android:onClick="redeemPoints"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="get recipe"
         android:onClick="getRecipe"/>
     
