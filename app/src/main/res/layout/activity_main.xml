@@ -44,6 +44,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:backgroundTint="#F6F5F5"
                 android:text="rewards"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -63,7 +64,7 @@
             <ProgressBar
                 android:id="@+id/rewardProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="1dp"
@@ -82,16 +83,20 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goalsTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonGoal" />
 
-            <TextView
-                android:id="@+id/goalsTextView"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/buttonGoal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="2dp"
+                android:backgroundTint="#F6F5F5"
+                android:layout_marginHorizontal="16dp"
                 android:text="Goal"
                 android:textColor="#000000"
                 android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/goalsProgressBar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rewardProgressBar" />
