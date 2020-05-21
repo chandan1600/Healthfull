@@ -1,16 +1,16 @@
 package com.example.healthfull.RewardsSystem;
 
-public class Recipe {
+public class RecipeObject {
     private String id;
     private String ingredients;
     private String name;
     private String recipe;
 
-    public Recipe(){
+    public RecipeObject(){
         //public constructor
     }
 
-    public Recipe(String id, String ingredients, String name, String recipe){
+    public RecipeObject(String id, String ingredients, String name, String recipe){
         this.id = id;
         this.ingredients = ingredients;
         this.name = name;

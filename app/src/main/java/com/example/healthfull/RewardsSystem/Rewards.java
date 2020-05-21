@@ -11,9 +11,7 @@ once redeemed, 50 points are subtracted from user point count
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,22 +29,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class Rewards extends AppCompatActivity{
 
     private static final String TAG = "Rewards";
-    private static final String keyName = "name";
     private static final String keyID = "id";
-    private static final String keyIngredient = "ingredients";
-    private static final String keyRecipe = "recipe";
 
-    private EditText editTextName;
-    private EditText editTextID;
-    private EditText editTextIngredient;
-    private EditText editTextRecipe;
     private TextView textViewRecipe;
 
     private static Random randNum = new Random();
@@ -54,7 +43,6 @@ public class Rewards extends AppCompatActivity{
     private static String random = Integer.toString(ran);
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DocumentReference recipeRef = db.collection("recipes").document("testRecipe");
     private CollectionReference recipesRef = db.collection("recipes");
     private DocumentReference userRef = db.collection("user").document("u1");
 
@@ -63,40 +51,7 @@ public class Rewards extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rewards);
 
-        editTextName = findViewById(R.id.edit_textName);
-        editTextID = findViewById(R.id.edit_text_id);
-        editTextIngredient = findViewById(R.id.edit_text_ingredient);
-        editTextRecipe = findViewById(R.id.edit_text_recipe);
         textViewRecipe = findViewById(R.id.view_recipe_data);
-    }
-
-    //ignore saveRecipe method, i was only testing things out, this is not part of the userStory requirement
-    public void saveRecipe(View V){
-        String name = editTextName.getText().toString();
-        String id = editTextID.getText().toString();
-        String ingredients = editTextID.getText().toString();
-        String recipe = editTextRecipe.getText().toString();
-
-        Map<String, Object> RecipeCollection = new HashMap<>();
-        RecipeCollection.put(keyName, name);
-        RecipeCollection.put(keyID, id);
-        RecipeCollection.put(keyIngredient, ingredients);
-        RecipeCollection.put(keyRecipe, recipe);
-
-        recipeRef.set(RecipeCollection)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(Rewards.this, "recipe saved", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Rewards.this,"Error Occurred", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, e.toString());
-                    }
-                });
     }
 
     //getUserCalories retrieves the user's calories consumed in the day, currently using dummy account
@@ -203,7 +158,7 @@ public class Rewards extends AppCompatActivity{
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             String info = "";
                             for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                Recipe recipes = documentSnapshot.toObject(Recipe.class);
+                                RecipeObject recipes = documentSnapshot.toObject(RecipeObject.class);
 
                                 String id = recipes.getId();
                                 String ingredients = recipes.getIngredients();
@@ -218,7 +173,7 @@ public class Rewards extends AppCompatActivity{
             subtractPoints();
         }
         else{
-            Toast.makeText(this, "insufficient points", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Rewards.this, "insufficient points", Toast.LENGTH_SHORT).show();
         }
     }
 

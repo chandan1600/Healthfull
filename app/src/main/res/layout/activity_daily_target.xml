@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".DailyTarget">
+
+    <EditText
+        android:id="@+id/edit_textFoodTarget"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="food target"
+        android:inputType="text"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setFoodTarget"
+        android:text="save food target" />
+
+    <EditText
+        android:id="@+id/edit_textWaterTarget"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="water target"
+        android:inputType="text"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setWaterTarget"
+        android:text="save water target" />
+
+
+</LinearLayout>
