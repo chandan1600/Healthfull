@@ -9,39 +9,12 @@
     android:padding="16dp"
     tools:context=".RewardsSystem.Rewards">
 
-    <EditText
-        android:id="@+id/edit_textName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="name"
-        android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/edit_text_ingredient"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ingredient"
-        android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/edit_text_recipe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="recipe"
-        android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/edit_text_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="id"
-        android:inputType="text"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:onClick="saveRecipe"/>
+        android:text="redeem points"
+        android:onClick="redeemPoints"/>
 
     <Button
         android:layout_width="match_parent"

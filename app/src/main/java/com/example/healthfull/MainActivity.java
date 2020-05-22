@@ -10,18 +10,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.healthfull.entries.NewFoodEntryActivity;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthfull.RewardsSystem.Rewards;
 import com.example.healthfull.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.example.healthfull.entries.NewFoodEntryActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Button rewardButton;
     Button galleryButton;
     ImageButton addEntryButton;
+    Button goalButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +63,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        goalButton = findViewById(R.id.buttonGoal);
+        goalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DailyTarget.class);
+                startActivity(intent);
+            }
+        });
+
         rewardButton = findViewById(R.id.rewardButton);
         rewardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openRewardsPage();
+                Intent intent = new Intent(getApplicationContext(), Rewards.class);
+                startActivity(intent);
             }
         });
 
@@ -95,11 +100,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return true;
-    }
-
-    public void openRewardsPage() {
-        Intent intent = new Intent(this, Rewards.class);
-        startActivity(intent);
     }
 
 }
