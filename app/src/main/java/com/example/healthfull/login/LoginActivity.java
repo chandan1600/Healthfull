@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.KeyEvent;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private ProgressBar loadingProgressBar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -38,6 +39,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         passwordEditText = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
         loadingProgressBar = findViewById(R.id.login_loading);
+
+        // hide login
+        usernameEditText.setVisibility(View.INVISIBLE);
+        passwordEditText.setVisibility(View.INVISIBLE);
+        loginButton.setVisibility(View.INVISIBLE);
 
         loadingProgressBar.setVisibility(View.VISIBLE);
 
@@ -82,6 +88,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
+            // show login
+            usernameEditText.setVisibility(View.VISIBLE);
+            passwordEditText.setVisibility(View.VISIBLE);
+            loginButton.setVisibility(View.VISIBLE);
+
             loadingProgressBar.setVisibility(View.INVISIBLE);
         }
     }

@@ -10,4 +10,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">Login failed</string>
     <string name="food_entry_query">Search for food</string>
+    <string name="food_entry_query_failed">An error occurred while searching</string>
+    <string name="add">Add</string>
+    <string name="logout">Logout</string>
 </resources>
