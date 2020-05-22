@@ -38,8 +38,8 @@ public class DailyTarget extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_target);
 
-        editTextFoodTarget.equals(R.id.edit_textFoodTarget);//this creates a link to the editing box on the xml
-        editTextWaterTarget.equals(R.id.edit_textWaterTarget);
+        editTextFoodTarget = findViewById(R.id.edit_textFoodTarget);//this creates a link to the editing box on the xml
+        editTextWaterTarget = findViewById(R.id.edit_textWaterTarget);
     }
 
     public void setFoodTarget(View view){
