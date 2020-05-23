@@ -1,12 +1,13 @@
 package com.example.healthfull.entries;
 
-import com.example.healthfull.search.FoodSearchResult;
 import com.example.healthfull.search.FoodSearchResults;
 
 public interface NewFoodEntryContract {
     interface View {
         void onSearchSuccess(FoodSearchResults results);
         void onSearchFailure(String message);
+        void onAddSuccess();
+        void onAddFailure(String message);
     }
 
     interface Presenter {
@@ -15,10 +16,13 @@ public interface NewFoodEntryContract {
 
     interface Interactor {
         void performSearch(String query);
+        void storeFoodLog(String id);
     }
 
     interface onAddFoodListener {
-        void onSuccess(FoodSearchResults results);
-        void onFailure(String message);
+        void onSearchSuccess(FoodSearchResults results);
+        void onSearchFailure(String message);
+        void onAddSuccess();
+        void onAddFailure(String message);
     }
 }
