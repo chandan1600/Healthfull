@@ -1,6 +1,7 @@
 package com.example.healthfull.DailyTarget;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+/**
+ * @author Chandan Aulakh
+ * Daily Targets class is for adding food and water targets to firestore database
+ * This class also shows a record of all targets entered per user
+ * There is an Oncreate method which finds the id of textView and editText to link XML to Class
+ * There is an instance of Firebase which is retrived to ineract with firestore database
+ */
 public class DailyTarget extends AppCompatActivity {
 
     private static final String TAG = "DailyTarget";//to log errors
@@ -23,7 +31,7 @@ public class DailyTarget extends AppCompatActivity {
     private EditText editTextFoodTarget;//food target entry
     private TextView textViewTarget;//display for targets
 
-    //connection to fire base and calling the targets sub-collection
+    //Firebase connection made and reference to "users" collection established
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference addTargetDoc = db.collection("users");
 
@@ -39,7 +47,14 @@ public class DailyTarget extends AppCompatActivity {
         textViewTarget = findViewById(R.id.textView_Targets);
     }
 
-    //adds food and water target to "target" sub-collection as document with fields
+    /**
+     * addFoodWaterTarget
+     * takes input from user through app and then passes it as a string to save into
+     * the firebase using a custom class at {@link TargetObject}
+     * A toast is released if the target is saved successfully
+     * A log is also made if the method is successful
+     * @param view
+     */
     public void addFoodWaterTarget(View view){
         String WaterTarget = editTextWaterTarget.getText().toString();
         String FoodTarget = editTextFoodTarget.getText().toString() + " calories";
@@ -48,9 +63,18 @@ public class DailyTarget extends AppCompatActivity {
 
         addTargetDoc.document("u1").collection("targets").add(target);
         Toast.makeText(this, "target saved", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"successful");
     }
 
-    //loads all previous targets made
+    /**
+     * loadTarget
+     * This method navigates to the "targets" subc-ollection within a user document
+     * It retrieves all documents(previous targets) from the "targets" sub-collection
+     * A snapshot of the document is passed and is looped through to collect data
+     * Data is then stored into variable and displayed through text view as a string
+     * A toast is released on the screen if the target is loaded successfully
+     * @param view
+     */
     public void loadTarget(View view){
         addTargetDoc.document("u1")
                 .collection("targets")
@@ -73,8 +97,10 @@ public class DailyTarget extends AppCompatActivity {
                     }
                 });
     }
-
 }
+
+
+
 
 
 
