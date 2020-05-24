@@ -2,6 +2,7 @@ package com.example.healthfull;
 
 import com.example.healthfull.entries.NewFoodEntryAdder;
 import com.example.healthfull.entries.NewWaterEntryAdder;
+import com.example.healthfull.util.MockFirebaseTask;
 import com.example.healthfull.util.OnDoneListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

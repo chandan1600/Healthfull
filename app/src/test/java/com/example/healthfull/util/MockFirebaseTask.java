@@ -1,4 +1,4 @@
-package com.example.healthfull;
+package com.example.healthfull.util;
 
 import android.app.Activity;
 
