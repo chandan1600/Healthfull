@@ -36,7 +36,7 @@
         <activity android:name=".RewardsSystem.Rewards" />
 
         <activity android:name=".Gallery" />
-        <activity android:name=".entries.NewFoodEntryActivity"></activity>
+        <activity android:name=".entries.NewFoodEntryActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

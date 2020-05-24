@@ -1,7 +1,5 @@
 package com.example.healthfull.entries;
 
-import android.view.View;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.search.FoodSearchResults;
