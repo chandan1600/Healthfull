@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.R;
 import com.example.healthfull.search.FoodSearchResults;
-import com.example.healthfull.search.FoodSearchResultsAdapter;
 
+/**
+ * MVP View class for the NewFoodEntry activity
+ */
 public class NewFoodEntryActivity extends AppCompatActivity implements NewFoodEntryContract.View {
 
     private static final String TAG = "NewFoodEntry";

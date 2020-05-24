@@ -1,5 +1,8 @@
 package com.example.healthfull.login;
 
+/**
+ * MVP Presenter class for the Login activity
+ */
 public class LoginPresenter implements LoginContract.Presenter, LoginContract.onLoginListener {
 
     private LoginContract.View view;

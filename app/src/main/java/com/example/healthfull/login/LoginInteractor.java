@@ -12,6 +12,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
+/**
+ * MVP Interactor is responsible for controlling models the login activity interacts with
+ */
 public class LoginInteractor implements LoginContract.Interactor {
 
     private LoginContract.onLoginListener onLoginListener;

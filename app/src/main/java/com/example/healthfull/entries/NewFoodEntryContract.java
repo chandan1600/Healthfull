@@ -3,8 +3,16 @@ package com.example.healthfull.entries;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.search.FoodSearchResults;
+import com.example.healthfull.util.MVPContract;
 
-public interface NewFoodEntryContract {
+/**
+ * NewFoodEntryContract interface declares what methods are required across the MVP architectural
+ * activity
+ */
+public interface NewFoodEntryContract extends MVPContract {
+    /**
+     * Methods the view must implement, usually callbacks from the Presenter
+     */
     interface View {
         void onSearchSuccess(FoodSearchResults results);
         void onSearchFailure(String message);
@@ -13,15 +21,23 @@ public interface NewFoodEntryContract {
         void setResultsViewAdapter(RecyclerView.Adapter adapter);
     }
 
+    /**
+     * Methods the presenter must implement
+     */
     interface Presenter {
         void search(String query);
     }
 
+    /**
+     * Methods the interactor must implement to interact with the model(s)
+     */
     interface Interactor {
         void performSearch(String query);
-        void storeFoodLog(String id);
     }
 
+    /**
+     * Callback interface, from the Interactor to the Presenter
+     */
     interface onAddFoodListener {
         void onSearchSuccess(FoodSearchResults results);
         void onSearchFailure(String message);

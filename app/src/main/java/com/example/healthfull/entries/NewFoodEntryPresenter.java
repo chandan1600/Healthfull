@@ -8,6 +8,9 @@ import com.example.healthfull.search.FoodSearchViewHolder;
 import com.example.healthfull.util.OnDoneListener;
 import com.example.healthfull.util.OnViewHolderAddListener;
 
+/**
+ * MVP Presenter class for the NewFoodEntry activity
+ */
 public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, NewFoodEntryContract.onAddFoodListener, OnViewHolderAddListener {
     private NewFoodEntryContract.View view;
     private NewFoodEntryContract.Interactor interactor;
@@ -42,7 +45,6 @@ public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, Ne
     public void onAddFailure(String message) {
         view.onAddFailure(message);
     }
-
 
     @Override
     public void onAdd(RecyclerView.ViewHolder viewHolder) {

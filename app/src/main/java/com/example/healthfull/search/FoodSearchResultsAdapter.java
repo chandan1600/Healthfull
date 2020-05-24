@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthfull.R;
 import com.example.healthfull.util.OnViewHolderAddListener;
 
+/**
+ * FoodSearchResultsAdapter adapts a FoodSearchResults object to ViewHolders for display in a
+ * RecyclerView
+ */
 public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchViewHolder> {
 
     private static final String TAG = "FoodSearchResults";
@@ -19,6 +23,12 @@ public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchVie
 
     private OnViewHolderAddListener onAddListener;
 
+    /**
+     * FoodSearchResultsAdapter creates ViewHolders from a FoodSearchResults object
+     * @param foodSearchResults the foodSearchResults instance that the ViewHolders will be created
+     *                          by
+     * @param onAddListener the callback that will be called when a result add button is clicked
+     */
     public FoodSearchResultsAdapter(FoodSearchResults foodSearchResults, OnViewHolderAddListener onAddListener) {
         this.foodSearchResults = foodSearchResults;
         this.onAddListener = onAddListener;

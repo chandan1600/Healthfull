@@ -21,6 +21,9 @@ import com.example.healthfull.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * MVP View class for the Login activity
+ */
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
     private LoginPresenter loginPresenter;

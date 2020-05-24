@@ -1,29 +1,22 @@
 package com.example.healthfull.entries;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.example.healthfull.search.FoodSearchResult;
 import com.example.healthfull.search.FoodSearchResults;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * MVP Interactor is responsible for controlling models the NewFoodEntry activity interacts with
+ */
 public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
 
     private static final String TAG = "NewFoodEntry";
-
 
     private NewFoodEntryContract.onAddFoodListener onAddFoodListener;
 
@@ -31,6 +24,8 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
         this.onAddFoodListener = onAddFoodListener;
     }
 
+    // Migrate to functionality to search package using a callback for the onAddFoodListener
+    // callback
     @Override
     public void performSearch(final String query) {
         // query food database
@@ -52,10 +47,5 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
                 }
             }
         });
-    }
-
-    @Override
-    public void storeFoodLog(String id) {
-
     }
 }
