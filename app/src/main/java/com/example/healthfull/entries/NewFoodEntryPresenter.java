@@ -2,9 +2,15 @@ package com.example.healthfull.entries;
 
 import android.view.View;
 
-import com.example.healthfull.search.FoodSearchResults;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, NewFoodEntryContract.onAddFoodListener, View.OnClickListener {
+import com.example.healthfull.search.FoodSearchResults;
+import com.example.healthfull.search.FoodSearchResultsAdapter;
+import com.example.healthfull.search.FoodSearchViewHolder;
+import com.example.healthfull.util.OnDoneListener;
+import com.example.healthfull.util.OnViewHolderAddListener;
+
+public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, NewFoodEntryContract.onAddFoodListener, OnViewHolderAddListener {
     private NewFoodEntryContract.View view;
     private NewFoodEntryContract.Interactor interactor;
 
@@ -20,6 +26,7 @@ public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, Ne
 
     @Override
     public void onSearchSuccess(FoodSearchResults results) {
+        view.setResultsViewAdapter(new FoodSearchResultsAdapter(results, this));
         view.onSearchSuccess(results);
     }
 
@@ -38,8 +45,24 @@ public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, Ne
         view.onAddFailure(message);
     }
 
+
     @Override
-    public void onClick(View v) {
-        interactor.storeFoodLog(v.getTag().toString());
+    public void onAdd(RecyclerView.ViewHolder viewHolder) {
+        FoodSearchViewHolder holder = (FoodSearchViewHolder) viewHolder;
+        holder.onAddButtonClick();
+        NewFoodEntryAdder adder = new NewFoodEntryAdder(holder.getAddButton().getTag().toString());
+        adder.setOnDoneListener(new OnDoneListener() {
+            @Override
+            public void onSuccess(Object object) {
+                holder.onAddFinished();
+                onAddSuccess();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                onAddFailure(message);
+            }
+        });
+        adder.save();
     }
 }

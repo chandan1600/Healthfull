@@ -1,5 +1,7 @@
 package com.example.healthfull.entries;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.healthfull.search.FoodSearchResults;
 
 public interface NewFoodEntryContract {
@@ -8,6 +10,7 @@ public interface NewFoodEntryContract {
         void onSearchFailure(String message);
         void onAddSuccess();
         void onAddFailure(String message);
+        void setResultsViewAdapter(RecyclerView.Adapter adapter);
     }
 
     interface Presenter {

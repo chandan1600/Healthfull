@@ -30,7 +30,6 @@ public class NewFoodEntryActivity extends AppCompatActivity implements NewFoodEn
     private Button searchButton;
     private ProgressBar progressBar;
     private RecyclerView resultsView;
-    private RecyclerView.Adapter resultsAdapter;
     private RecyclerView.LayoutManager resultsLayoutManager;
 
     @Override
@@ -78,8 +77,6 @@ public class NewFoodEntryActivity extends AppCompatActivity implements NewFoodEn
             Toast.makeText(getApplicationContext(), "No Results Found", Toast.LENGTH_SHORT).show();
         }
 
-        resultsAdapter = new FoodSearchResultsAdapter(results, presenter);
-        resultsView.setAdapter(resultsAdapter);
     }
 
     @Override
@@ -98,5 +95,10 @@ public class NewFoodEntryActivity extends AppCompatActivity implements NewFoodEn
     public void onAddFailure(String message) {
         Log.e(TAG, message);
         Toast.makeText(getApplicationContext(), "An error occurred while adding", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setResultsViewAdapter(RecyclerView.Adapter adapter) {
+        resultsView.setAdapter(adapter);
     }
 }

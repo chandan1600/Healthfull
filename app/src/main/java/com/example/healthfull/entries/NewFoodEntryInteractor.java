@@ -56,39 +56,6 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
 
     @Override
     public void storeFoodLog(String id) {
-        Log.d(TAG, "Selected: " + id);
 
-        // add this to a user collection
-
-        DocumentReference user = FirebaseFirestore
-                .getInstance()
-                .collection("users")
-                .document(FirebaseAuth
-                        .getInstance()
-                        .getCurrentUser()
-                        .getUid()
-                );
-
-        CollectionReference entryLogs = user.collection("logs");
-
-        Map<String, Object> entry = new HashMap<>();
-        entry.put("foodId", id);
-        entry.put("date", new Date());
-
-        entryLogs
-                .document()
-                .set(entry)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "Added");
-                            onAddFoodListener.onAddSuccess();
-                        } else {
-                            Log.e(TAG, "Error occurred writing document", task.getException());
-                            onAddFoodListener.onAddFailure(task.getException().toString());
-                        }
-                    }
-                });
     }
 }
