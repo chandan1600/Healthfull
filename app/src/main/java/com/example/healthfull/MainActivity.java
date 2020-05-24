@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.healthfull.DailyTarget.DailyTarget;
 import com.example.healthfull.RewardsSystem.Rewards;
 import com.example.healthfull.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;

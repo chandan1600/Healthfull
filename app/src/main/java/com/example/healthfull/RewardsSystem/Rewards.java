@@ -12,6 +12,7 @@ once redeemed, 50 points are subtracted from user point count
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -36,15 +36,20 @@ public class Rewards extends AppCompatActivity{
     private static final String TAG = "Rewards";
     private static final String keyID = "id";
 
+    private static double goalCalorie;
+    private static double userCalorie = 2500;
     private TextView textViewRecipe;
+    private EditText textWeight;
+    private EditText textHeight;
+    private EditText textAge;
 
     private static Random randNum = new Random();
-    private static int ran = randNum.nextInt(3) + 1;
+    private static int ran = randNum.nextInt(4);
     private static String random = Integer.toString(ran);
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference recipesRef = db.collection("recipes");
-    private DocumentReference userRef = db.collection("user").document("u1");
+    private DocumentReference userPoint = db.collection("users").document("u1");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,135 +57,85 @@ public class Rewards extends AppCompatActivity{
         setContentView(R.layout.activity_rewards);
 
         textViewRecipe = findViewById(R.id.view_recipe_data);
+        textWeight = findViewById(R.id.edit_textWeight);
+        textHeight = findViewById(R.id.edit_textHeight);
+        textAge = findViewById(R.id.edit_textAge);
     }
 
-    //getUserCalories retrieves the user's calories consumed in the day, currently using dummy account
-    public int getUserCalories(){
-        final String[] userCaloriesString = new String[1];
-        userRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            userCaloriesString[0] = documentSnapshot.getString("calories");
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Rewards.this, "user not found", Toast.LENGTH_SHORT).show();
-                    }
-                });
-        return Integer.parseInt(userCaloriesString[0]);
+    public double setGoalCalories(View view){
+        String inputWeight = textWeight.getText().toString();
+        String inputHeight = textHeight.getText().toString();
+        String inputAge = textAge.getText().toString();
+
+        double weight  = Double.parseDouble(inputWeight);
+        double height = Double.parseDouble(inputHeight);
+        double age = Double.parseDouble(inputAge);
+
+        goalCalorie= 1.2*(66.5 + (13.75*weight)+(5.003*height)-(6.775*age));
+        Toast.makeText(this, (int) goalCalorie, Toast.LENGTH_SHORT).show();
+        return goalCalorie;
     }
 
-    //getUserGoalCalories retrieves the user's goal calories, currently using dummy account
-    public int getUserGoalCalories(){
-        final String[] userGoalCaloriesString = new String[1];
-        userRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            userGoalCaloriesString[0] = documentSnapshot.getString("goalCalories");
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Rewards.this, "user not found", Toast.LENGTH_SHORT).show();
-                    }
-                });
-        return Integer.parseInt(userGoalCaloriesString[0]);
-    }
-
-    public int getUserPoint(){
-        final String[] userPointCount = new String[1];
-        userRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            userPointCount[0] = documentSnapshot.getString("points");
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Rewards.this, "could not retrieve points", Toast.LENGTH_SHORT).show();
-                    }
-                });
-        return Integer.parseInt(userPointCount[0]);
-    }
-
-    //compares userCalories and GoalCalories to see if user achieved goal, returns true if successful
+    //here i have tried to parse the String array returned by the two methods
+    //however this experiences the same null problem
     public boolean compareCalories(){
-        return getUserGoalCalories() < getUserCalories();
+        if(userCalorie>goalCalorie){
+            return true;
+        }
+        return false;
     }
 
     //subtractPoints reduces the user points by 50 after recipe redemption
     public void subtractPoints(){
-        DocumentReference userPoint = db.collection("users").document("u1");
         userPoint.update("points", FieldValue.increment(-50));
     }
 
-    //method to return true if user has more than 50 points
-    public boolean checkUserPoints(){
-        if(getUserPoint()<50){
-            return false;
-        }
-        return true;
-    }
 
     //user clicks to redeem points for the day, if calories are higher than goal calories
     public void redeemPoints(View view){
         if(compareCalories()) {
-            DocumentReference userPoint = db.collection("users").document("u1");
-            userPoint.update("points", FieldValue.increment(10));
-            Toast.makeText(this, "you received 10 points", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(this, "you did not meet your calorie goal", Toast.LENGTH_SHORT).show();
+            userPoint.update("points", FieldValue.increment(10))
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(Rewards.this, "you received 10 points", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Rewards.this, "you did not meet your calorie goal", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
     //getRecipe retrieves a recipe if user has points, recipe is randomised using randomInt
     public void getRecipe(View view){
-        if(checkUserPoints()){
             recipesRef
-                    .whereEqualTo(keyID, random)
+                    .whereEqualTo("id",random)
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            String info = "";
-                            for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                RecipeObject recipes = documentSnapshot.toObject(RecipeObject.class);
+                            String display="";
 
-                                String id = recipes.getId();
-                                String ingredients = recipes.getIngredients();
-                                String name = recipes.getName();
-                                String recipe = recipes.getRecipe();
+                            for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots){
+                                RecipeObject rec = documentSnapshots.toObject(RecipeObject.class);
 
-                                info += "id: "+id+"\nname: "+name+"\ningredients: "+ingredients+"\nrecipe: "+recipe;
+                                String id = rec.getId();
+                                String ingredients = rec.getIngredients();
+                                String name = rec.getName();
+                                String recipe = rec.getRecipe();
+
+                                display += "id: "+id+"\n\ningredients: "+ingredients+"\n\nname: "+name
+                                        +"\n\nrecipe: "+recipe+"\n\n\n\n";
                             }
-                            textViewRecipe.setText(info);
+                            textViewRecipe.setText(display);
+                            Toast.makeText(Rewards.this, "Recipe Loaded", Toast.LENGTH_SHORT).show();
                         }
                     });
             subtractPoints();
-        }
-        else{
-            Toast.makeText(Rewards.this, "insufficient points", Toast.LENGTH_SHORT).show();
-        }
     }
-
-/*
-figure out how to have a 24 hour gap in between redeem points
-add a point count somewhere that updates
- */
 
 }
 
