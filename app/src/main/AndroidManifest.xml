@@ -33,6 +33,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".register.RegisterActivity"
+            android:label="Healthfull"
+            android:noHistory="true" />
+
         <activity android:name=".RewardsSystem.Rewards" />
 
         <activity android:name=".Gallery" />

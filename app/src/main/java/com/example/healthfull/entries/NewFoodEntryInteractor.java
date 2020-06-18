@@ -39,12 +39,12 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
         Query q = firestore.collection("food").whereArrayContains("tags", query.toLowerCase());
-        Query q1 = firestore.collection("food").whereArrayContains("tags", "toast");
+        //Query q1 = firestore.collection("food").whereArrayContains("tags", "toast");
 
         List<Query> queries = new ArrayList<>();
 
         queries.add(q);
-        queries.add(q1);
+        //queries.add(q1);
 
         FirebaseMultiRetriever multi = new FirebaseMultiRetriever(queries);
 
@@ -59,13 +59,13 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
                     results.add(new FoodSearchResult(doc.getId(), doc.getData().get("name").toString()));
                 }
 
-                Task<QuerySnapshot> toastSearchTask = object.get(1);
-
-                // get food search results
-                FoodSearchResults results2 = new FoodSearchResults();
-                for (QueryDocumentSnapshot doc : toastSearchTask.getResult()) {
-                    results2.add(new FoodSearchResult(doc.getId(), doc.getData().get("name").toString()));
-                }
+//                Task<QuerySnapshot> toastSearchTask = object.get(1);
+//
+//                // get food search results
+//                FoodSearchResults results2 = new FoodSearchResults();
+//                for (QueryDocumentSnapshot doc : toastSearchTask.getResult()) {
+//                    results2.add(new FoodSearchResult(doc.getId(), doc.getData().get("name").toString()));
+//                }
 
                 Log.e(TAG, "Objects returned: " + Integer.toString(object.size()));
 

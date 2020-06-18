@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -31,7 +30,7 @@ public class LoginInteractor implements LoginContract.Interactor {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            onLoginListener.onSuccess("Logged In Successfully");
+                            onLoginListener.onLoginSuccess("Logged In Successfully");
                         } else {
                             try {
                                 throw task.getException();
@@ -40,7 +39,7 @@ public class LoginInteractor implements LoginContract.Interactor {
                                 createUser(email, password);
                             } catch(FirebaseAuthInvalidCredentialsException e) {
                                 // Invalid password, user exists
-                                onLoginListener.onFailure("Password Incorrect");
+                                onLoginListener.onLoginFailure("Password Incorrect");
                             } catch(Exception e) {
                                 Log.e("Healthfull App", e.getMessage());
                             }
@@ -56,9 +55,9 @@ public class LoginInteractor implements LoginContract.Interactor {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            onLoginListener.onSuccess("Registered Successfully");
+                            onLoginListener.onRegisterSuccess("Registered Successfully");
                         } else {
-                            onLoginListener.onFailure(task.getException().toString());
+                            onLoginListener.onRegisterFailure(task.getException().toString());
                         }
                     }
                 });
