@@ -38,6 +38,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        setTitle("Register");
+
         dateOfBirthCalendar = Calendar.getInstance();
 
         nameEditText = findViewById(R.id.register_editTextName);

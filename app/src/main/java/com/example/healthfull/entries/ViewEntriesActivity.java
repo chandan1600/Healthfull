@@ -27,6 +27,8 @@ public class ViewEntriesActivity extends AppCompatActivity implements ViewEntrie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entries);
 
+        setTitle("Log History");
+
         // should start loading logs from firebase
         entriesPresenter = new ViewEntriesPresenter(this);
 
@@ -46,7 +48,7 @@ public class ViewEntriesActivity extends AppCompatActivity implements ViewEntrie
     @Override
     public void onLoadSuccess(List<FoodEntry> entries) {
         if (entries.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "No entries yet. Add some from the dashboard", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "No entries yet. Add some from the dashboard", Toast.LENGTH_LONG).show();
         }
     }
 

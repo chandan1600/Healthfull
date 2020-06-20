@@ -41,6 +41,8 @@ public class NewFoodEntryActivity extends AppCompatActivity implements NewFoodEn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newfoodentry);
 
+        setTitle("New Food Log");
+
         presenter = new NewFoodEntryPresenter(this);
 
         searchInput = findViewById(R.id.food_entry_query);

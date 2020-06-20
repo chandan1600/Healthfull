@@ -22,6 +22,7 @@ public class ViewEntriesPresenter implements ViewEntriesContract.Presenter, View
     public void onLoadSuccess(List<FoodEntry> entries) {
         view.setEntriesViewAdapter(new ViewEntriesViewAdapter(entries));
         view.showProgressBar(false);
+        view.onLoadSuccess(entries);
     }
 
     @Override

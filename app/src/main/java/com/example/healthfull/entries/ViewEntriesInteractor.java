@@ -46,6 +46,11 @@ public class ViewEntriesInteractor implements ViewEntriesContract.Interactor {
                 if (task.isSuccessful()) {
                     //List<FoodEntry> entries = new ArrayList<>();
 
+                    // first check if any results exist
+                    if (task.getResult().isEmpty()) {
+                        onLoadListener.onLoadSuccess(new ArrayList<>());
+                    }
+
                     // Use a linked hash map to maintain order
                     Map<FoodEntry, Boolean> entries = new LinkedHashMap<>();
 
