@@ -1,10 +1,14 @@
 package com.example.healthfull.search;
 
+import com.google.firebase.firestore.DocumentReference;
+
 /**
  * FoodSearchResult contains data retrieved from Firebase for a specific food
  */
 public class FoodSearchResult {
-    private String id, name, description;
+
+    private DocumentReference ref;
+    private String name, description;
     private float servingSize;
     /*
     include all other nutritional information
@@ -14,7 +18,7 @@ public class FoodSearchResult {
      * Default constructor
      */
     public FoodSearchResult() {
-        this.id = "";
+        this.ref = null;
         this.name = "";
         this.description = "";
         this.servingSize = 0;
@@ -22,18 +26,18 @@ public class FoodSearchResult {
 
     /**
      * Constructor sets food id and name
-     * @param id Firebase ID for the food
+     * @param ref Firebase document reference for the food
      * @param name name of the food
      */
-    public FoodSearchResult(String id, String name) {
-        this.id = id;
+    public FoodSearchResult(DocumentReference ref, String name) {
+        this.ref = ref;
         this.name = name;
         this.description = "";
         this.servingSize = 0;
     }
 
-    public String getId() {
-        return id;
+    public DocumentReference getRef() {
+        return ref;
     }
 
     public String getName() {

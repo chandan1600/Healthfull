@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentReference;
+
 /**
  * FoodSearchViewHolder contains the Layout and Views in a single FoodResult ViewHolder has
  * callbacks for adjusting feedback state
@@ -17,6 +19,8 @@ public class FoodSearchViewHolder extends RecyclerView.ViewHolder {
     private TextView nameView;
     private Button addButton;
     private ProgressBar progressBar;
+
+    private DocumentReference food;
 
     /**
      * Constructor retrieves relevant children from the layout
@@ -28,6 +32,7 @@ public class FoodSearchViewHolder extends RecyclerView.ViewHolder {
         nameView = (TextView) layout.getChildAt(0);
         addButton = (Button) layout.getChildAt(1);
         progressBar = (ProgressBar) layout.getChildAt(2);
+        food = null;
     }
 
     /**
@@ -61,5 +66,13 @@ public class FoodSearchViewHolder extends RecyclerView.ViewHolder {
 
     public ProgressBar getProgressBar() {
         return progressBar;
+    }
+
+    public DocumentReference getFood() {
+        return food;
+    }
+
+    public void setFood(DocumentReference food) {
+        this.food = food;
     }
 }

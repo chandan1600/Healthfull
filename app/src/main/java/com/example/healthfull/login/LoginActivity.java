@@ -142,8 +142,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void onRegisterSuccess(String message) {
         loadingProgressBar.setVisibility(View.INVISIBLE);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (!changeActivity(currentUser)) {
+            onLoginFailure("Failed to login, please try again");
+        }
     }
 
     @Override

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthfull.DailyTarget.DailyTarget;
 import com.example.healthfull.RewardsSystem.Rewards;
+import com.example.healthfull.entries.ViewEntriesActivity;
 import com.example.healthfull.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.healthfull.entries.NewFoodEntryActivity;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button galleryButton;
     ImageButton addEntryButton;
     Button goalButton;
+    Button viewEntriesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), NewFoodEntryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        viewEntriesButton = findViewById(R.id.main_viewentries_button);
+        viewEntriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ViewEntriesActivity.class);
                 startActivity(intent);
             }
         });

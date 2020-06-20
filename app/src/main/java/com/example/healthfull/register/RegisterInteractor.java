@@ -46,14 +46,15 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         // update users date of birth in the database
 
         // add this to a user collection
-        Map<String, Object> dateOfBirthEntry = new HashMap<>();
-        dateOfBirthEntry.put("dateOfBirth", dateOfBirth);
+        Map<String, Object> profileEntry = new HashMap<>();
+        profileEntry.put("dateOfBirth", dateOfBirth);
+        profileEntry.put("name", name);
 
         FirebaseFirestore
                 .getInstance()
                 .collection("users")
                 .document(user.getUid())
-                .set(dateOfBirthEntry)
+                .set(profileEntry)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

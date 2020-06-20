@@ -2,13 +2,9 @@ package com.example.healthfull.entries;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.example.healthfull.search.FoodSearchResult;
-import com.example.healthfull.search.FoodSearchResults;
 import com.example.healthfull.util.FirebaseMultiRetriever;
 import com.example.healthfull.util.OnDoneListener;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -54,9 +50,9 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
                 Task<QuerySnapshot> foodSearchTask = object.get(0);
 
                 // get food search results
-                FoodSearchResults results = new FoodSearchResults();
+                List<FoodSearchResult> results = new ArrayList<>();
                 for (QueryDocumentSnapshot doc : foodSearchTask.getResult()) {
-                    results.add(new FoodSearchResult(doc.getId(), doc.getData().get("name").toString()));
+                    results.add(new FoodSearchResult(doc.getReference(), doc.getData().get("name").toString()));
                 }
 
 //                Task<QuerySnapshot> toastSearchTask = object.get(1);

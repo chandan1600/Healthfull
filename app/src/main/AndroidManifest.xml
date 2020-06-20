@@ -38,6 +38,8 @@
             android:label="Healthfull"
             android:noHistory="true" />
 
+        <activity android:name=".entries.ViewEntriesActivity" />
+
         <activity android:name=".RewardsSystem.Rewards" />
 
         <activity android:name=".Gallery" />

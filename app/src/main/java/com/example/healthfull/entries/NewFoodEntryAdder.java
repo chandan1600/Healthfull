@@ -6,6 +6,7 @@ import com.example.healthfull.util.OnDoneListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
@@ -19,13 +20,13 @@ import java.util.Map;
 public class NewFoodEntryAdder {
 
     private OnDoneListener onDoneListener;
-    private String foodId;
+    private DocumentReference food;
 
     /**
      * Constructor sets the food id (from Firebase) for the food that should be added
      */
-    public NewFoodEntryAdder(String foodId) {
-        this.foodId = foodId;
+    public NewFoodEntryAdder(DocumentReference food) {
+        this.food = food;
     }
 
     /**
@@ -49,7 +50,7 @@ public class NewFoodEntryAdder {
 
         // add this to a user collection
         Map<String, Object> entry = new HashMap<>();
-        entry.put("foodId", foodId);
+        entry.put("food", food);
         entry.put("date", new Date());
 
         FirebaseFirestore

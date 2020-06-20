@@ -1,8 +1,5 @@
 package com.example.healthfull.register;
 
-import com.example.healthfull.login.LoginContract;
-import com.example.healthfull.login.LoginInteractor;
-
 import java.util.Date;
 
 public class RegisterPresenter implements RegisterContract.Presenter, RegisterContract.onSubmitListener {

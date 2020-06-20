@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthfull.R;
 import com.example.healthfull.util.OnViewHolderAddListener;
 
+import java.util.List;
+
 /**
  * FoodSearchResultsAdapter adapts a FoodSearchResults object to ViewHolders for display in a
  * RecyclerView
@@ -19,7 +21,7 @@ public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchVie
 
     private static final String TAG = "FoodSearchResults";
 
-    private FoodSearchResults foodSearchResults;
+    private List<FoodSearchResult> foodSearchResults;
 
     private OnViewHolderAddListener onAddListener;
 
@@ -29,7 +31,7 @@ public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchVie
      *                          by
      * @param onAddListener the callback that will be called when a result add button is clicked
      */
-    public FoodSearchResultsAdapter(FoodSearchResults foodSearchResults, OnViewHolderAddListener onAddListener) {
+    public FoodSearchResultsAdapter(List<FoodSearchResult> foodSearchResults, OnViewHolderAddListener onAddListener) {
         this.foodSearchResults = foodSearchResults;
         this.onAddListener = onAddListener;
     }
@@ -49,13 +51,15 @@ public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchVie
 
     @Override
     public void onBindViewHolder(@NonNull FoodSearchViewHolder holder, int position) {
-        holder.getLayout().setTag(foodSearchResults.get(position).getId());
+        //holder.getLayout().setTag(foodSearchResults.get(position).getId());
+
+        holder.setFood(foodSearchResults.get(position).getRef());
 
         holder.getNameView().setText(foodSearchResults.get(position).getName());
 
         holder.getProgressBar().setVisibility(View.INVISIBLE);
 
-        holder.getAddButton().setTag(foodSearchResults.get(position).getId());
+        //holder.getAddButton().setTag(foodSearchResults.get(position).getId());
 
         holder.getAddButton().setOnClickListener(new View.OnClickListener() {
             @Override
