@@ -19,8 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".recommendation.MainRec"></activity>
         <activity android:name=".DailyTarget.DailyTarget" />
-
         <activity android:name=".MainActivity" />
 
         <activity
@@ -29,12 +29,18 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".RewardsSystem.Rewards" />
+        <activity android:name=".RewardsSystem.Rewards">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Gallery" />
         <activity android:name=".entries.NewFoodEntryActivity" />
 
