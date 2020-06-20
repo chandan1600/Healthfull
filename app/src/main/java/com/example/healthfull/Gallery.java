@@ -8,12 +8,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
-import android.app.Activity;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,8 +21,16 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.healthfull.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,19 +40,24 @@ import java.util.Date;
 
 public class Gallery extends AppCompatActivity {
 
-    public static final int GALLERY_REQUEST_CODE = 105;
-    ImageView galleryImageView;
-    Button cameraButton;
-    Button phoneGalleryButton;
-    Intent cameraIntent;
-    String currentPhotoPath;
-    public static final int CAMERA_REQUEST_CODE = 102;
+    //required constants
     public static final int CAMERA_PERM_CODE = 101;
-    static final int REQUEST_TAKE_PHOTO = 1;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final int CAMERA_REQUEST_CODE = 102;
+    public static final int GALLERY_REQUEST_CODE = 105;
+    //required global variables
+    ImageView galleryImageView;
+    String currentPhotoPath;
+    StorageReference storageReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //required
+        Button cameraButton;
+        Button phoneGalleryButton;
+        storageReference = FirebaseStorage.getInstance().getReference();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         Toast.makeText(this, "Inside oncreate gallery class", Toast.LENGTH_SHORT).show();
@@ -55,14 +67,22 @@ public class Gallery extends AppCompatActivity {
         phoneGalleryButton = findViewById(R.id.phoneGalleryButton);
 
 
+        /*
+        The camera button has an on click listener, which is called when the user
+        clicks on the camera button. The button clicks results in the method that gets the camera
+        permission from the users device.
+         */
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ask for permission to use camera
                 getCameraPermission();
             }
         });
 
+        /*
+        The gallery button also has an on click listener, this button upon being clicked creates an
+        intent that performs a pick action from the media images on the users device.
+         */
         phoneGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,39 +90,28 @@ public class Gallery extends AppCompatActivity {
                 startActivityForResult(phoneGallery, GALLERY_REQUEST_CODE);
             }
         });
-
-
     }
 
+    /**
+     * This method simply prompts the user to give permission to the app in order to be able to use
+     * the phone camera to take pictures. The if statement checks if the system has permission, if
+     * it doesn't then it requires the user to give permission.
+     */
     private void getCameraPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
         } else {
-            //openCamera();
             dispatchTakePictureIntent();
         }
-
     }
 
-    private void openCamera(){
-        cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
-    }
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //if permission is granted on the camera
-        if (requestCode == CAMERA_PERM_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) { //if both is true then user has given permssion
-                //openCamera();
-                dispatchTakePictureIntent();
-                Toast.makeText(this, "Its before after method", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Camera Permission is Required to use camera", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
-
+    /**
+     * This method is called inside the dispatch take picture intent method. The method creates
+     * a file for the picture that's taken or uploaded. It gives the file a name and stores in
+     * directory and assigns the images absolute path to a variable called currentPhotoPath.
+     * @return
+     * @throws IOException
+     */
     private File createImageFile() throws IOException {
         //Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -115,11 +124,15 @@ public class Gallery extends AppCompatActivity {
         );
 
         //Save a file: path for use with ACTION_VIEW intents
-        this.currentPhotoPath = image.getAbsolutePath();
+        currentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
-    private void dispatchTakePictureIntent() {
+    /**
+     * This method is run called upon getting the camera permission, if the intent is not null
+     * and if the photo file is not then then it gets the photo uri and puts in the intent.
+     */
+    public void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         //Ensure that there's a camera activity to handle the intent
@@ -131,58 +144,92 @@ public class Gallery extends AppCompatActivity {
                 photoFile = createImageFile();
 
             }catch (IOException ex) {
-
             }
             //Continue only if the File was successfully created
             if(photoFile != null){
                 Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
-
             }
         }
     }
 
+    /**
+     * This method, upon getting the camera request permission if creates a new file
+     * and sets the imageview with the image uri. Then it also uploads it to the firebase
+     * using the upload image to firebase method.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //take picture from camera
         if (requestCode == CAMERA_REQUEST_CODE) {
-                File f = new File(currentPhotoPath);
-                galleryImageView.setImageURI(Uri.fromFile(f));
-                Log.d("tag", "Absolute URL of image is " + Uri.fromFile(f));
-                galleryImageView.invalidate();
-                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                Uri contentUri = Uri.fromFile(f);
-                mediaScanIntent.setData(contentUri);
-                this.sendBroadcast(mediaScanIntent);
+            File f = new File(currentPhotoPath);
+            galleryImageView.setImageURI(Uri.fromFile(f));
+            //Log.d("tag", "Absolute URL of image is " + Uri.fromFile(f));
+            galleryImageView.invalidate();
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri contentUri = Uri.fromFile(f);
+            mediaScanIntent.setData(contentUri);
+            this.sendBroadcast(mediaScanIntent);
+            uploadImageToFirebase(f.getName(), contentUri);
+        }
 
-            }
-
+        //take picture from gallery
         if (requestCode == GALLERY_REQUEST_CODE) {
-
             Uri contentUri = data.getData();
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "." + getFileExt(contentUri);
             Log.d("tag", "onActivityResult: Gallery Image Uri:  " + imageFileName);
-
-            //File f = new File(currentPhotoPath);
             galleryImageView.setImageURI(contentUri);
-
             galleryImageView.invalidate();
-            //Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//            Uri contentUri = Uri.fromFile(f);
-            //mediaScanIntent.setData(contentUri);
-            //this.sendBroadcast(mediaScanIntent);
-
+            uploadImageToFirebase(imageFileName, contentUri);
         }
-
     }
 
+    /**
+     * The method uploads the image taken from either the camera or phone gallery gets uploaded to
+     * the apps firebase, firestore database. The images are stored by their uris.
+     * @param name
+     * @param contentUri
+     */
+    private void uploadImageToFirebase(String name, Uri contentUri) {
+        //specify path where to save image
+        //all images uploaded by the user will be in the images in firebase
+        //only the latest image will be shown in the image view
+        final StorageReference image = storageReference.child("images/" + name); //contains path of the image to upload
+        image.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        //Picasso.get().load(uri).into(galleryImageView);
+                        Log.d("tag", "onSuccess: Upload Image URL is " + uri.toString());
+                    }
+                });
+                Toast.makeText(Gallery.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Gallery.this, "Upload Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * Method gets the file extension as a MimeTypeMap and returns it.
+     * @param contentUri
+     * @return
+     */
     private String getFileExt(Uri contentUri) {
         ContentResolver c = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(c.getType(contentUri));
     }
-
 
 }
