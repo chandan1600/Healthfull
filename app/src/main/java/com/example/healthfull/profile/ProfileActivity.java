@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         FragmentPagerItems pages = new FragmentPagerItems(this);
 
         pages.add(FragmentPagerItem.of("Friends", FriendsFragment.class));
-        pages.add(FragmentPagerItem.of("Clients", FriendsFragment.class));
+        pages.add(FragmentPagerItem.of("Clients", ClientsFragment.class));
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(getSupportFragmentManager(), pages);
 

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.healthfull.R;
 
-public class FriendsFragment extends Fragment {
+public class ClientsFragment extends Fragment {
 
     @Nullable
     @Override
@@ -24,6 +24,6 @@ public class FriendsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView textView = view.findViewById(R.id.title);
-        textView.setText("Friends");
+        textView.setText("Clients");
     }
 }
