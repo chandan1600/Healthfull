@@ -49,6 +49,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         Map<String, Object> profileEntry = new HashMap<>();
         profileEntry.put("dateOfBirth", dateOfBirth);
         profileEntry.put("name", name);
+        profileEntry.put("email", user.getEmail());
 
         FirebaseFirestore
                 .getInstance()

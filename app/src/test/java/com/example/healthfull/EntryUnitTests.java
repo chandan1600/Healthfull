@@ -31,7 +31,8 @@ import static org.mockito.Mockito.when;
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({
         FirebaseAuth.class,
-        FirebaseFirestore.class
+        FirebaseFirestore.class,
+        DocumentReference.class
 })
 
 public class EntryUnitTests {
@@ -76,7 +77,9 @@ public class EntryUnitTests {
         // Adds a new entry of type Egg
         CountDownLatch latch = new CountDownLatch(1);
 
-        NewFoodEntryAdder adder = new NewFoodEntryAdder("UP3F8tKGp6JZJpnDWbHY");
+        DocumentReference ref = FirebaseFirestore.getInstance().document("/food/UP3F8tKGp6JZJpnDWbHY");
+
+        NewFoodEntryAdder adder = new NewFoodEntryAdder(ref);
 
         final boolean[] eggAdded = {false};
 

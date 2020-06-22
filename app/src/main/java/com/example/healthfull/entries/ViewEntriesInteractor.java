@@ -1,7 +1,5 @@
 package com.example.healthfull.entries;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.example.healthfull.util.OnDoneListener;

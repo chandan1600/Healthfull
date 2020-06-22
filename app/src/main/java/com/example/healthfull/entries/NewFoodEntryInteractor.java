@@ -1,7 +1,5 @@
 package com.example.healthfull.entries;
 
-import android.util.Log;
-
 import com.example.healthfull.search.FoodSearchResult;
 import com.example.healthfull.util.FirebaseMultiRetriever;
 import com.example.healthfull.util.OnDoneListener;
@@ -18,8 +16,6 @@ import java.util.List;
  * MVP Interactor is responsible for controlling models the NewFoodEntry activity interacts with
  */
 public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
-
-    private static final String TAG = "NewFoodEntry";
 
     private NewFoodEntryContract.onAddFoodListener onAddFoodListener;
 
@@ -62,8 +58,6 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
 //                for (QueryDocumentSnapshot doc : toastSearchTask.getResult()) {
 //                    results2.add(new FoodSearchResult(doc.getId(), doc.getData().get("name").toString()));
 //                }
-
-                Log.e(TAG, "Objects returned: " + Integer.toString(object.size()));
 
                 onAddFoodListener.onSearchSuccess(results);
             }
