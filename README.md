@@ -1,7 +1,7 @@
 # Healthfull
 COMP602 Software Team Project
 
-## Created by for COMP602
+## Created for COMP602 by
 Max Troughear (17983282)
 
 Chandan Aulakh (18006095)
