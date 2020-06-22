@@ -24,4 +24,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="friends_add">Tap here to add new friends</string>
     <string name="friend_email_address">Friend\'s email address</string>
+    <string name="tap_here_to_search_for_a_trainer">Tap here to search for a trainer</string>
+    <string name="tap_here_to_accept_clients">Tap here to accept clients</string>
 </resources>
