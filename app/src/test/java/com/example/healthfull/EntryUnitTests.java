@@ -100,7 +100,7 @@ public class EntryUnitTests {
         adder.save();
 
         try {
-            latch.await(100, TimeUnit.MILLISECONDS);
+            latch.await(1000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             // continue
         }
