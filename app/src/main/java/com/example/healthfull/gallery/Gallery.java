@@ -1,4 +1,4 @@
-package com.example.healthfull;
+package com.example.healthfull.gallery;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,11 +21,11 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.healthfull.R;
+import com.example.healthfull.search_nutri.NutritionInfo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -50,28 +50,24 @@ public class Gallery extends AppCompatActivity {
     StorageReference storageReference;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //required
         Button cameraButton;
         Button phoneGalleryButton;
+        Button seeAllButton;
         storageReference = FirebaseStorage.getInstance().getReference();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-        Toast.makeText(this, "Inside oncreate gallery class", Toast.LENGTH_SHORT).show();
 
         galleryImageView = findViewById(R.id.galleryImageView);
         cameraButton = findViewById(R.id.cameraButton);
         phoneGalleryButton = findViewById(R.id.phoneGalleryButton);
+        seeAllButton = findViewById(R.id.seeAllButton);
 
-
-        /*
-        The camera button has an on click listener, which is called when the user
-        clicks on the camera button. The button clicks results in the method that gets the camera
-        permission from the users device.
-         */
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,10 +75,6 @@ public class Gallery extends AppCompatActivity {
             }
         });
 
-        /*
-        The gallery button also has an on click listener, this button upon being clicked creates an
-        intent that performs a pick action from the media images on the users device.
-         */
         phoneGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +82,17 @@ public class Gallery extends AppCompatActivity {
                 startActivityForResult(phoneGallery, GALLERY_REQUEST_CODE);
             }
         });
+
+        seeAllButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent seeAllImages = new Intent(getApplicationContext(), GalleryGridView.class);
+                startActivity(seeAllImages);
+            }
+        });
+
+
     }
 
     /**
@@ -207,7 +210,6 @@ public class Gallery extends AppCompatActivity {
                 image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //Picasso.get().load(uri).into(galleryImageView);
                         Log.d("tag", "onSuccess: Upload Image URL is " + uri.toString());
                     }
                 });

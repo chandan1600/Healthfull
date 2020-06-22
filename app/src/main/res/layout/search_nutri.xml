@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:id="@+id/nutriTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nutrition Information"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24dp">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/nutritionEditText"
+        android:layout_below="@id/nutriTitleTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:hint="Search a food...">
+    </EditText>
+
+    <Button
+        android:id="@+id/searchNutriButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nutritionEditText"
+        android:onClick="getNutritionRecord"
+        android:text="Search nutritions"
+        android:textSize="18sp">
+    </Button>
+
+    <TextView
+        android:id="@+id/nutriTextView"
+        android:layout_width="385dp"
+        android:layout_height="503dp"
+        android:layout_below="@+id/searchNutriButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="4dp"
+        android:bufferType="spannable"
+        android:textColor="#000000"
+        android:textSize="18sp">
+
+    </TextView>
+
+</RelativeLayout>

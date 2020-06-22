@@ -33,10 +33,18 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".gallery.GalleryGridView">
+
+        </activity>
+
         <activity android:name=".RewardsSystem.Rewards" />
 
-        <activity android:name=".Gallery" />
+        <activity android:name=".gallery.Gallery" />
         <activity android:name=".entries.NewFoodEntryActivity" />
+
+        <activity
+            android:name=".search_nutri.NutritionInfo">
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

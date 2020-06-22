@@ -36,7 +36,6 @@ public class DailyTarget extends AppCompatActivity {
     private CollectionReference addTargetDoc = db.collection("users");
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

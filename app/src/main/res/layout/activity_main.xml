@@ -20,15 +20,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <ScrollView
         android:id="@+id/main_scroll"
-        android:layout_width="409dp"
-        android:layout_height="0dp"
+        android:layout_width="410dp"
+        android:layout_height="377dp"
         android:layout_marginBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeUserTextView">
+        app:layout_constraintTop_toBottomOf="@+id/welcomeUserTextView"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +82,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/waterEnteriesTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,77 +105,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rewardProgressBar" />
 
-            <TextView
-                android:id="@+id/waterEnteriesTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/nutriButton"
+                android:layout_width="371dp"
+                android:layout_height="54dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="sans-serif-light"
-                android:text="water entries"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/waterEntryProgressBar"
+                android:background="@color/cardview_light_background"
+                android:text="See Nutrition Info"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goalsProgressBar" />
 
-            <ProgressBar
-                android:id="@+id/waterEntryProgressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/foodEntriesTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/waterEnteriesTextView" />
-
-            <TextView
-                android:id="@+id/foodEntriesTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-light"
-                android:text="food entries"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/waterEntryProgressBar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/profileButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/ic_person"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/galleryButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:background="#FFFFFF"
-        android:fontFamily="sans-serif-medium"
-        android:text="gallery"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/main_addButton"
@@ -185,8 +135,33 @@
         android:scaleType="fitStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/galleryButton"
+        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toEndOf="@+id/profileButton"
         app:layout_constraintTop_toBottomOf="@+id/main_scroll"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_add_black_24dp" />
+
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_person"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/galleryButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="8dp"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif-medium"
+        android:text="gallery"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
