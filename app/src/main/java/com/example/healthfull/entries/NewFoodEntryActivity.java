@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.R;
-import com.example.healthfull.search.FoodSearchResults;
+import com.example.healthfull.search.FoodSearchResult;
+
+import java.util.List;
 
 /**
  * MVP View class for the NewFoodEntry activity
@@ -38,6 +40,8 @@ public class NewFoodEntryActivity extends AppCompatActivity implements NewFoodEn
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newfoodentry);
+
+        setTitle("New Food Log");
 
         presenter = new NewFoodEntryPresenter(this);
 
@@ -72,7 +76,7 @@ public class NewFoodEntryActivity extends AppCompatActivity implements NewFoodEn
     }
 
     @Override
-    public void onSearchSuccess(FoodSearchResults results) {
+    public void onSearchSuccess(List<FoodSearchResult> results) {
         progressBar.setVisibility(View.INVISIBLE);
 
         if (results.isEmpty()) {

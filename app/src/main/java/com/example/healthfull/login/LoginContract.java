@@ -12,6 +12,8 @@ public interface LoginContract extends MVPContract {
     interface View {
         void onLoginSuccess(String message);
         void onLoginFailure(String message);
+        void onRegisterSuccess(String message);
+        void onRegisterFailure(String message);
         void setInputEnabled(boolean enabled);
     }
 
@@ -38,7 +40,9 @@ public interface LoginContract extends MVPContract {
      * Callback interface, from the Interactor to the Presenter
      */
     interface onLoginListener {
-        void onSuccess(String message);
-        void onFailure(String message);
+        void onLoginSuccess(String message);
+        void onLoginFailure(String message);
+        void onRegisterSuccess(String message);
+        void onRegisterFailure(String message);
     }
 }

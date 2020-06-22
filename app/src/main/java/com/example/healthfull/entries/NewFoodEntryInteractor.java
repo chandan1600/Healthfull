@@ -2,13 +2,9 @@ package com.example.healthfull.entries;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.example.healthfull.search.FoodSearchResult;
-import com.example.healthfull.search.FoodSearchResults;
 import com.example.healthfull.util.FirebaseMultiRetriever;
 import com.example.healthfull.util.OnDoneListener;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -39,12 +35,12 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
         Query q = firestore.collection("food").whereArrayContains("tags", query.toLowerCase());
-        Query q1 = firestore.collection("food").whereArrayContains("tags", "toast");
+        //Query q1 = firestore.collection("food").whereArrayContains("tags", "toast");
 
         List<Query> queries = new ArrayList<>();
 
         queries.add(q);
-        queries.add(q1);
+        //queries.add(q1);
 
         FirebaseMultiRetriever multi = new FirebaseMultiRetriever(queries);
 
@@ -54,18 +50,18 @@ public class NewFoodEntryInteractor implements NewFoodEntryContract.Interactor {
                 Task<QuerySnapshot> foodSearchTask = object.get(0);
 
                 // get food search results
-                FoodSearchResults results = new FoodSearchResults();
+                List<FoodSearchResult> results = new ArrayList<>();
                 for (QueryDocumentSnapshot doc : foodSearchTask.getResult()) {
-                    results.add(new FoodSearchResult(doc.getId(), doc.getData().get("name").toString()));
+                    results.add(new FoodSearchResult(doc.getReference(), doc.getData().get("name").toString()));
                 }
 
-                Task<QuerySnapshot> toastSearchTask = object.get(1);
-
-                // get food search results
-                FoodSearchResults results2 = new FoodSearchResults();
-                for (QueryDocumentSnapshot doc : toastSearchTask.getResult()) {
-                    results2.add(new FoodSearchResult(doc.getId(), doc.getData().get("name").toString()));
-                }
+//                Task<QuerySnapshot> toastSearchTask = object.get(1);
+//
+//                // get food search results
+//                FoodSearchResults results2 = new FoodSearchResults();
+//                for (QueryDocumentSnapshot doc : toastSearchTask.getResult()) {
+//                    results2.add(new FoodSearchResult(doc.getId(), doc.getData().get("name").toString()));
+//                }
 
                 Log.e(TAG, "Objects returned: " + Integer.toString(object.size()));
 

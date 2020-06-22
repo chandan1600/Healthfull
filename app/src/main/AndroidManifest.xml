@@ -32,6 +32,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".register.RegisterActivity"
+            android:label="Healthfull"
+            android:noHistory="true" />
+        <activity android:name=".entries.ViewEntriesActivity" />
+        <activity android:name=".profile.ProfileActivity" />
 
         <activity android:name=".gallery.GalleryGridView">
 
@@ -41,10 +47,6 @@
 
         <activity android:name=".gallery.Gallery" />
         <activity android:name=".entries.NewFoodEntryActivity" />
-
-        <activity
-            android:name=".search_nutri.NutritionInfo">
-        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -14,14 +14,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthfull.DailyTarget.DailyTarget;
 import com.example.healthfull.RewardsSystem.Rewards;
+import com.example.healthfull.entries.ViewEntriesActivity;
 import com.example.healthfull.gallery.Gallery;
 import com.example.healthfull.login.LoginActivity;
+import com.example.healthfull.profile.ProfileActivity;
 import com.example.healthfull.search_nutri.NutritionInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.healthfull.entries.NewFoodEntryActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int CAMERA_REQUEST_CODE = 102;
+
+    private static final String TAG = "Main";
+
+    MainContract.Presenter presenter;
+
+    //for camera
+    ImageView selectedImage;
     ImageView galleryImageView;
     Button cameraButton;
     Button rewardButton;

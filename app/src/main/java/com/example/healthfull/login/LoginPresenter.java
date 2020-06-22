@@ -19,13 +19,23 @@ public class LoginPresenter implements LoginContract.Presenter, LoginContract.on
     }
 
     @Override
-    public void onSuccess(String message) {
+    public void onLoginSuccess(String message) {
         view.onLoginSuccess(message);
     }
 
     @Override
-    public void onFailure(String message) {
+    public void onLoginFailure(String message) {
         view.setInputEnabled(true);
         view.onLoginFailure(message);
+    }
+
+    @Override
+    public void onRegisterSuccess(String message) {
+        view.onRegisterSuccess(message);
+    }
+
+    @Override
+    public void onRegisterFailure(String message) {
+        view.onRegisterFailure(message);
     }
 }
