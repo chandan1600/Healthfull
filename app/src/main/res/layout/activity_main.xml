@@ -105,14 +105,16 @@
                 android:id="@+id/nutriButton"
                 android:layout_width="371dp"
                 android:layout_height="54dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
                 android:background="@color/cardview_light_background"
                 android:text="See Nutrition Info"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.421"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goalsProgressBar" />
+                app:layout_constraintTop_toBottomOf="@+id/foodEntriesTextView" />
 
             <TextView
                 android:id="@+id/waterEnteriesTextView"
