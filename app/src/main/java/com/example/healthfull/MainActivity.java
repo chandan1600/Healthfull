@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     Button rewardButton;
     Button galleryButton;
     Button nutriButton;
-    ImageButton addEntryButton;
     Button goalButton;
     Button viewEntriesButton;
     ProgressBar addWaterProgressBar;
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         cameraButton = findViewById(R.id.cameraButton);
         galleryButton = findViewById(R.id.galleryButton);
 
-        profileButton = findViewById(R.id.main_profilebutton);
+        profileButton = findViewById(R.id.main_profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void onAddWaterFailure(String message) {
-        Log.e(TAG, message);
         Toast.makeText(getApplicationContext(), "Failed to add water, please try again later", Toast.LENGTH_SHORT).show();
     }
 
