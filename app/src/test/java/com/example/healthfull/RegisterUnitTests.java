@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.example.healthfull.register.RegisterContract;
 import com.example.healthfull.register.RegisterPresenter;
-import com.example.healthfull.util.MockFirebaseTask;
+import com.example.healthfull.util.MockFirebaseTaskVoid;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -82,7 +82,7 @@ public class RegisterUnitTests {
         when(documentReference.collection(any())).thenReturn(collectionReference);
         when(collectionReference.document(any())).thenReturn(documentReference);
         when(collectionReference.document()).thenReturn(documentReference);
-        when(documentReference.set(any())).thenReturn(new MockFirebaseTask(true, true));
+        when(documentReference.set(any())).thenReturn(new MockFirebaseTaskVoid(true, true));
     }
 
     @Test

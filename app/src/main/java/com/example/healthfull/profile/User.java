@@ -147,17 +147,14 @@ public class User {
                                                     }
                                                 }
                                             }
-
                                             requests--;
                                             checkAllDone(friends);
-
                                         } else {
                                             // skip this friend
                                         }
                                     }
                                 });
                             }
-
                         } else {
                             onDoneListener.onFailure(task.getException().getMessage());
                         }
