@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class ViewEntriesActivity extends AppCompatActivity implements ViewEntrie
 
         setTitle("Log History");
 
+        // get user id
+        String userId = getIntent().getStringExtra("user");
+
+
+
         // should start loading logs from firebase
         entriesPresenter = new ViewEntriesPresenter(this);
 
@@ -42,7 +48,12 @@ public class ViewEntriesActivity extends AppCompatActivity implements ViewEntrie
         entriesView.setLayoutManager(entriesLayoutManager);
 
         // do this last
-        entriesPresenter.loadEntries();
+        entriesPresenter
+                .loadEntries(FirebaseFirestore
+                        .getInstance()
+                        .collection("users")
+                        .document(userId)
+                );
     }
 
     @Override

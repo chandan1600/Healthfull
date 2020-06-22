@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.R;
-import com.example.healthfull.util.OnViewHolderAddListener;
+import com.example.healthfull.util.OnViewHolderClickListener;
 
 import java.util.List;
 
@@ -19,21 +19,19 @@ import java.util.List;
  */
 public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchViewHolder> {
 
-    private static final String TAG = "FoodSearchResults";
-
     private List<FoodSearchResult> foodSearchResults;
 
-    private OnViewHolderAddListener onAddListener;
+    private OnViewHolderClickListener onClickListener;
 
     /**
      * FoodSearchResultsAdapter creates ViewHolders from a FoodSearchResults object
      * @param foodSearchResults the foodSearchResults instance that the ViewHolders will be created
      *                          by
-     * @param onAddListener the callback that will be called when a result add button is clicked
+     * @param onClickListener the callback that will be called when a result add button is clicked
      */
-    public FoodSearchResultsAdapter(List<FoodSearchResult> foodSearchResults, OnViewHolderAddListener onAddListener) {
+    public FoodSearchResultsAdapter(List<FoodSearchResult> foodSearchResults, OnViewHolderClickListener onClickListener) {
         this.foodSearchResults = foodSearchResults;
-        this.onAddListener = onAddListener;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -64,7 +62,7 @@ public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchVie
         holder.getAddButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAddListener.onAdd(holder);
+                onClickListener.onClick(holder);
             }
         });
     }

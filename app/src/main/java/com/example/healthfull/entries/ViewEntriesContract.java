@@ -3,6 +3,7 @@ package com.example.healthfull.entries;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.util.MVPContract;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.List;
 
@@ -15,11 +16,11 @@ public interface ViewEntriesContract extends MVPContract {
     }
 
     interface Presenter {
-        void loadEntries();
+        void loadEntries(DocumentReference userRef);
     }
 
     interface Interactor {
-        void performFirebaseEntriesLoad();
+        void performFirebaseEntriesLoad(DocumentReference userRef);
     }
 
     interface onLoadListener {

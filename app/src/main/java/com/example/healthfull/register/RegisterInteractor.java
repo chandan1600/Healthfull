@@ -31,8 +31,11 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 .setDisplayName(name)
                 .build();
 
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+        Task<Void> updateProfileTask = user.updateProfile(profileUpdates);
+
+        if (updateProfileTask != null) {
+            updateProfileTask.addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
@@ -42,6 +45,11 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                         }
                     }
                 });
+        } else {
+            // complete if the task is null, otherwise will hang
+            queriesCompleted[0] = true;
+            checkSaveSucceeded(queriesCompleted);
+        }
 
         // update users date of birth in the database
 
@@ -74,7 +82,6 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 return;
             }
         }
-
         // all succeeded
         onSubmitListener.onSaveSuccess();
     }

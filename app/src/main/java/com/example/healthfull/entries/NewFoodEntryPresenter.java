@@ -6,14 +6,14 @@ import com.example.healthfull.search.FoodSearchResult;
 import com.example.healthfull.search.FoodSearchResultsAdapter;
 import com.example.healthfull.search.FoodSearchViewHolder;
 import com.example.healthfull.util.OnDoneListener;
-import com.example.healthfull.util.OnViewHolderAddListener;
+import com.example.healthfull.util.OnViewHolderClickListener;
 
 import java.util.List;
 
 /**
  * MVP Presenter class for the NewFoodEntry activity
  */
-public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, NewFoodEntryContract.onAddFoodListener, OnViewHolderAddListener {
+public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, NewFoodEntryContract.onAddFoodListener, OnViewHolderClickListener {
     private NewFoodEntryContract.View view;
     private NewFoodEntryContract.Interactor interactor;
 
@@ -49,7 +49,7 @@ public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, Ne
     }
 
     @Override
-    public void onAdd(RecyclerView.ViewHolder viewHolder) {
+    public void onClick(RecyclerView.ViewHolder viewHolder) {
         FoodSearchViewHolder holder = (FoodSearchViewHolder) viewHolder;
         holder.onAddButtonClick();
         NewFoodEntryAdder adder = new NewFoodEntryAdder(holder.getFood());

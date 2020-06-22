@@ -1,5 +1,7 @@
 package com.example.healthfull.entries;
 
+import com.google.firebase.firestore.DocumentReference;
+
 import java.util.List;
 
 public class ViewEntriesPresenter implements ViewEntriesContract.Presenter, ViewEntriesContract.onLoadListener {
@@ -13,9 +15,9 @@ public class ViewEntriesPresenter implements ViewEntriesContract.Presenter, View
     }
 
     @Override
-    public void loadEntries() {
+    public void loadEntries(DocumentReference userRef) {
         view.showProgressBar(true);
-        interactor.performFirebaseEntriesLoad();
+        interactor.performFirebaseEntriesLoad(userRef);
     }
 
     @Override

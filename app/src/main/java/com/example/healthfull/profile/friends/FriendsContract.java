@@ -18,6 +18,7 @@ public interface FriendsContract extends MVPContract {
     interface View {
         void onFriendsLoadSuccess(RecyclerView.Adapter adapter);
         void onFriendsLoadFailure(String message);
+        void viewEntriesForUser(User user);
     }
 
     /**

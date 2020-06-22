@@ -1,6 +1,7 @@
 package com.example.healthfull.profile.friends;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.R;
 import com.example.healthfull.profile.User;
+import com.example.healthfull.util.OnViewHolderClickListener;
 
 import java.util.List;
 
@@ -16,8 +18,11 @@ public class FriendsViewAdapter extends RecyclerView.Adapter<FriendsViewHolder> 
 
     private List<User> friends;
 
-    public FriendsViewAdapter(List<User> friends) {
+    private OnViewHolderClickListener onClickListener;
+
+    public FriendsViewAdapter(List<User> friends, OnViewHolderClickListener onClickListener) {
         this.friends = friends;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -37,6 +42,13 @@ public class FriendsViewAdapter extends RecyclerView.Adapter<FriendsViewHolder> 
         holder.setUser(friends.get(position));
 
         holder.getName().setText(friends.get(position).getName());
+
+        holder.getCard().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(holder);
+            }
+        });
     }
 
     @Override

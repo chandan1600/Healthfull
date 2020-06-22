@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.R;
+import com.example.healthfull.entries.ViewEntriesActivity;
+import com.example.healthfull.profile.User;
 
 public class FriendsFragment extends Fragment implements FriendsContract.View {
 
@@ -67,5 +69,12 @@ public class FriendsFragment extends Fragment implements FriendsContract.View {
     @Override
     public void onFriendsLoadFailure(String message) {
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void viewEntriesForUser(User user) {
+        Intent intent = new Intent(getContext().getApplicationContext(), ViewEntriesActivity.class);
+        intent.putExtra("user", user.getFirebaseUser().getId());
+        startActivity(intent);
     }
 }

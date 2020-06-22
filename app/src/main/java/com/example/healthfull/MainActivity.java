@@ -23,6 +23,10 @@ import com.example.healthfull.login.LoginActivity;
 import com.example.healthfull.profile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.healthfull.entries.NewFoodEntryActivity;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.w3c.dom.Document;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ViewEntriesActivity.class);
+                intent.putExtra("user", FirebaseAuth.getInstance().getCurrentUser().getUid());
                 startActivity(intent);
             }
         });

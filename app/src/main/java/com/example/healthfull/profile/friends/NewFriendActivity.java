@@ -69,6 +69,8 @@ public class NewFriendActivity extends AppCompatActivity implements NewFriendCon
             }
         });
 
+        newFriendAddButton.setText(getString(R.string.add));
+        newFriendAddButton.setEnabled(true);
         newFriendCard.setVisibility(View.VISIBLE);
         searchProgressBar.setVisibility(View.INVISIBLE);
     }
@@ -88,6 +90,7 @@ public class NewFriendActivity extends AppCompatActivity implements NewFriendCon
     @Override
     public void onAddFailure(String message) {
         newFriendAddProgressBar.setVisibility(View.INVISIBLE);
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         newFriendAddButton.setEnabled(true);
     }
 }

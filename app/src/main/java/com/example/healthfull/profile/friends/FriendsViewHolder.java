@@ -13,15 +13,21 @@ public class FriendsViewHolder extends RecyclerView.ViewHolder {
 
     private User user;
 
+    private CardView card;
     private ConstraintLayout layout;
     private ImageView profileImage;
     private TextView name;
 
     public FriendsViewHolder(ConstraintLayout layout) {
         super(layout);
-        this.layout = ((ConstraintLayout)((CardView)layout.getChildAt(0)).getChildAt(0));
+        this.card = (CardView)layout.getChildAt(0);
+        this.layout = ((ConstraintLayout)card.getChildAt(0));
         profileImage = (ImageView) this.layout.getChildAt(0);
         name = (TextView) this.layout.getChildAt(1);
+    }
+
+    public CardView getCard() {
+        return card;
     }
 
     public User getUser() {

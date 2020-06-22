@@ -27,13 +27,8 @@ public class ViewEntriesInteractor implements ViewEntriesContract.Interactor {
     }
 
     @Override
-    public void performFirebaseEntriesLoad() {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        firestore
-                .collection("users")
-                .document(user.getUid())
+    public void performFirebaseEntriesLoad(DocumentReference userRef) {
+        userRef
                 .collection("logs")
                 .orderBy("date")
                 .limitToLast(100)

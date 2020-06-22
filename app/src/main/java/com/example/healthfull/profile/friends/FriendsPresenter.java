@@ -1,7 +1,9 @@
 package com.example.healthfull.profile.friends;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.healthfull.profile.User;
-import com.example.healthfull.util.OnDoneListener;
+import com.example.healthfull.util.OnViewHolderClickListener;
 
 import java.util.List;
 
@@ -22,7 +24,13 @@ public class FriendsPresenter implements FriendsContract.Presenter, FriendsContr
 
     @Override
     public void onFriendsLoadSuccess(List<User> friendList) {
-        view.onFriendsLoadSuccess(new FriendsViewAdapter(friendList));
+        view.onFriendsLoadSuccess(new FriendsViewAdapter(friendList, new OnViewHolderClickListener() {
+            @Override
+            public void onClick(RecyclerView.ViewHolder viewHolder) {
+                FriendsViewHolder holder = (FriendsViewHolder) viewHolder;
+                view.viewEntriesForUser(holder.getUser());
+            }
+        }));
     }
 
     @Override
