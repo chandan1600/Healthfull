@@ -40,8 +40,7 @@ public class Rewards extends AppCompatActivity{
     private static double userCalorie = 2500;
     private TextView textViewRecipe;
     private EditText textWeight;
-    private EditText textHeight;
-    private EditText textAge;
+    private EditText textHeight;    private EditText textAge;
 
     //Random number generator for use with the getRecipe method
     private static Random randNum = new Random();
