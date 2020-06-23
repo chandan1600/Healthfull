@@ -2,7 +2,7 @@ package com.example.healthfull;
 
 import com.example.healthfull.entries.NewFoodEntryAdder;
 import com.example.healthfull.entries.NewWaterEntryAdder;
-import com.example.healthfull.util.MockFirebaseTask;
+import com.example.healthfull.util.MockFirebaseTaskVoid;
 import com.example.healthfull.util.OnDoneListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +31,8 @@ import static org.mockito.Mockito.when;
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({
         FirebaseAuth.class,
-        FirebaseFirestore.class
+        FirebaseFirestore.class,
+        DocumentReference.class
 })
 
 public class EntryUnitTests {
@@ -67,7 +68,7 @@ public class EntryUnitTests {
         when(documentReference.collection(any())).thenReturn(collectionReference);
         when(collectionReference.document(any())).thenReturn(documentReference);
         when(collectionReference.document()).thenReturn(documentReference);
-        when(documentReference.set(any())).thenReturn(new MockFirebaseTask(true, true));
+        when(documentReference.set(any())).thenReturn(new MockFirebaseTaskVoid(true, true));
     }
 
     @Test
@@ -76,9 +77,11 @@ public class EntryUnitTests {
         // Adds a new entry of type Egg
         CountDownLatch latch = new CountDownLatch(1);
 
-        NewFoodEntryAdder adder = new NewFoodEntryAdder("UP3F8tKGp6JZJpnDWbHY");
+        DocumentReference ref = FirebaseFirestore.getInstance().document("/food/UP3F8tKGp6JZJpnDWbHY");
 
-        final boolean[] eggAdded = {false};
+        NewFoodEntryAdder adder = new NewFoodEntryAdder(ref);
+
+        final boolean[] eggAdded = { false };
 
         adder.setOnDoneListener(new OnDoneListener() {
             @Override
@@ -97,7 +100,7 @@ public class EntryUnitTests {
         adder.save();
 
         try {
-            latch.await(100, TimeUnit.MILLISECONDS);
+            latch.await(1000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             // continue
         }

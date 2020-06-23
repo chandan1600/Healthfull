@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.healthfull.MainActivity;
 import com.example.healthfull.R;
+import com.example.healthfull.register.RegisterActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -37,6 +38,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        setTitle("Login");
 
         usernameEditText = findViewById(R.id.login_username);
         passwordEditText = findViewById(R.id.login_password);
@@ -86,11 +89,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
         // check for stored user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            // change activity to main dashboard
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        } else {
+
+        if (!changeActivity(currentUser)) {
             // show login
             usernameEditText.setVisibility(View.VISIBLE);
             passwordEditText.setVisibility(View.VISIBLE);
@@ -98,6 +98,23 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
             loadingProgressBar.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private boolean changeActivity(FirebaseUser user) {
+        // check for stored user
+        if (user != null) {
+            if (user.getDisplayName() != null && !user.getDisplayName().isEmpty()) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            } else {
+                // change activity to finalise registration
+                Intent intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        }
+        return false;
     }
 
     private void login(String email, String password) {
@@ -109,14 +126,34 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void onLoginSuccess(String message) {
         loadingProgressBar.setVisibility(View.INVISIBLE);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (!changeActivity(currentUser)) {
+            onLoginFailure("Failed to login, please try again");
+        }
     }
 
     @Override
     public void onLoginFailure(String message) {
         loadingProgressBar.setVisibility(View.INVISIBLE);
+        setInputEnabled(true);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRegisterSuccess(String message) {
+        loadingProgressBar.setVisibility(View.INVISIBLE);
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (!changeActivity(currentUser)) {
+            onLoginFailure("Failed to login, please try again");
+        }
+    }
+
+    @Override
+    public void onRegisterFailure(String message) {
+
     }
 
     @Override

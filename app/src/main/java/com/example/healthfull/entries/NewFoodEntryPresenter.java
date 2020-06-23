@@ -2,16 +2,18 @@ package com.example.healthfull.entries;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthfull.search.FoodSearchResults;
+import com.example.healthfull.search.FoodSearchResult;
 import com.example.healthfull.search.FoodSearchResultsAdapter;
 import com.example.healthfull.search.FoodSearchViewHolder;
 import com.example.healthfull.util.OnDoneListener;
-import com.example.healthfull.util.OnViewHolderAddListener;
+import com.example.healthfull.util.OnViewHolderClickListener;
+
+import java.util.List;
 
 /**
  * MVP Presenter class for the NewFoodEntry activity
  */
-public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, NewFoodEntryContract.onAddFoodListener, OnViewHolderAddListener {
+public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, NewFoodEntryContract.onAddFoodListener, OnViewHolderClickListener {
     private NewFoodEntryContract.View view;
     private NewFoodEntryContract.Interactor interactor;
 
@@ -26,7 +28,7 @@ public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, Ne
     }
 
     @Override
-    public void onSearchSuccess(FoodSearchResults results) {
+    public void onSearchSuccess(List<FoodSearchResult> results) {
         view.setResultsViewAdapter(new FoodSearchResultsAdapter(results, this));
         view.onSearchSuccess(results);
     }
@@ -47,10 +49,10 @@ public class NewFoodEntryPresenter implements NewFoodEntryContract.Presenter, Ne
     }
 
     @Override
-    public void onAdd(RecyclerView.ViewHolder viewHolder) {
+    public void onClick(RecyclerView.ViewHolder viewHolder) {
         FoodSearchViewHolder holder = (FoodSearchViewHolder) viewHolder;
         holder.onAddButtonClick();
-        NewFoodEntryAdder adder = new NewFoodEntryAdder(holder.getAddButton().getTag().toString());
+        NewFoodEntryAdder adder = new NewFoodEntryAdder(holder.getFood());
         adder.setOnDoneListener(new OnDoneListener() {
             @Override
             public void onSuccess(Object object) {

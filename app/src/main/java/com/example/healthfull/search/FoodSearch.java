@@ -1,5 +1,8 @@
 package com.example.healthfull.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * INCOMPLETE
  * FoodSearch is responsible for searching the Firebase food collection asynchronously for food tags
@@ -13,10 +16,10 @@ public class FoodSearch {
      * @param query
      * @return
      */
-    public static FoodSearchResults Search(String query) {
-        FoodSearchResults results = new FoodSearchResults();
+    public static List<FoodSearchResult> Search(String query) {
+        List<FoodSearchResult> results = new ArrayList<>();
 
-        results.add(new FoodSearchResult("1", "Food 1"));
+        //results.add(new FoodSearchResult("1", "Food 1"));
 
         return results;
     }

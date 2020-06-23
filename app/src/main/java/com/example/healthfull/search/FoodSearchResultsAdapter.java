@@ -9,7 +9,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.R;
-import com.example.healthfull.util.OnViewHolderAddListener;
+import com.example.healthfull.util.OnViewHolderClickListener;
+
+import java.util.List;
 
 /**
  * FoodSearchResultsAdapter adapts a FoodSearchResults object to ViewHolders for display in a
@@ -17,21 +19,19 @@ import com.example.healthfull.util.OnViewHolderAddListener;
  */
 public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchViewHolder> {
 
-    private static final String TAG = "FoodSearchResults";
+    private List<FoodSearchResult> foodSearchResults;
 
-    private FoodSearchResults foodSearchResults;
-
-    private OnViewHolderAddListener onAddListener;
+    private OnViewHolderClickListener onClickListener;
 
     /**
      * FoodSearchResultsAdapter creates ViewHolders from a FoodSearchResults object
      * @param foodSearchResults the foodSearchResults instance that the ViewHolders will be created
      *                          by
-     * @param onAddListener the callback that will be called when a result add button is clicked
+     * @param onClickListener the callback that will be called when a result add button is clicked
      */
-    public FoodSearchResultsAdapter(FoodSearchResults foodSearchResults, OnViewHolderAddListener onAddListener) {
+    public FoodSearchResultsAdapter(List<FoodSearchResult> foodSearchResults, OnViewHolderClickListener onClickListener) {
         this.foodSearchResults = foodSearchResults;
-        this.onAddListener = onAddListener;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -49,18 +49,20 @@ public class FoodSearchResultsAdapter extends RecyclerView.Adapter<FoodSearchVie
 
     @Override
     public void onBindViewHolder(@NonNull FoodSearchViewHolder holder, int position) {
-        holder.getLayout().setTag(foodSearchResults.get(position).getId());
+        //holder.getLayout().setTag(foodSearchResults.get(position).getId());
+
+        holder.setFood(foodSearchResults.get(position).getRef());
 
         holder.getNameView().setText(foodSearchResults.get(position).getName());
 
         holder.getProgressBar().setVisibility(View.INVISIBLE);
 
-        holder.getAddButton().setTag(foodSearchResults.get(position).getId());
+        //holder.getAddButton().setTag(foodSearchResults.get(position).getId());
 
         holder.getAddButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAddListener.onAdd(holder);
+                onClickListener.onClick(holder);
             }
         });
     }

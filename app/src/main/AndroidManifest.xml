@@ -21,26 +21,26 @@
 
         <activity android:name=".DailyTarget.DailyTarget" />
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/app_name"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".RewardsSystem.Rewards">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Gallery" />
+        <activity
+            android:name=".register.RegisterActivity"
+            android:label="Healthfull"
+            android:noHistory="true" />
+        <activity android:name=".entries.ViewEntriesActivity" />
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".profile.friends.NewFriendActivity" />
+        <activity android:name=".gallery.GalleryGridView" />
+        <activity android:name=".search_nutri.NutritionInfo" />
+        <activity android:name=".RewardsSystem.Rewards" />
+        <activity android:name=".gallery.Gallery" />
         <activity android:name=".entries.NewFoodEntryActivity" />
 
         <provider

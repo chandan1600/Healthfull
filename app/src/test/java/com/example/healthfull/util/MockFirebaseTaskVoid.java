@@ -12,12 +12,12 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.concurrent.Executor;
 
-public class MockFirebaseTask extends Task<Void> {
+public class MockFirebaseTaskVoid extends Task<Void> {
 
     private boolean complete;
     private boolean success;
 
-    public MockFirebaseTask(boolean complete, boolean success) {
+    public MockFirebaseTaskVoid(boolean complete, boolean success) {
         this.complete = complete;
         this.success = success;
     }
