@@ -26,6 +26,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Calendar;
 import java.util.Random;
 
+/**
+ * @author Chandan Aulakh
+ * this class sets a users goal calories, lets the user redeem points and lets the user
+ * redeem a recipe. It handles all requests to firebase
+ */
 public class Rewards extends AppCompatActivity{
 
     private static final String TAG = "Rewards";
@@ -48,7 +53,7 @@ public class Rewards extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rewards);
-
+        //id of xml components are stored in variable
         textViewRecipe = findViewById(R.id.view_recipe_data);
         textWeight = findViewById(R.id.edit_textWeight);
         textHeight = findViewById(R.id.edit_textHeight);
@@ -63,6 +68,12 @@ public class Rewards extends AppCompatActivity{
         });
     }
 
+    /**
+     * sets goal calories for the user using input received from the edit text in xml.
+     * uses Harris-Benedict formula to calculate calories
+     * @param view
+     * @return
+     */
     public double setGoalCalories(View view){
         String inputWeight = textWeight.getText().toString();
         String inputHeight = textHeight.getText().toString();
@@ -89,7 +100,10 @@ public class Rewards extends AppCompatActivity{
         userPoint.update("points", FieldValue.increment(-50));
     }
 
-    //user clicks to redeem points for the day, if calories are higher than goal calories
+    /**
+     * redeem points is a method to increment users points by 10 if they have met goal calories
+     * else they will receive a toast message that goal is not met
+     */
     public void redeemPoints(){
         if(compareCalories()) {
             userPoint.update("points", FieldValue.increment(10))
@@ -109,6 +123,10 @@ public class Rewards extends AppCompatActivity{
         }
     }
 
+    /**
+     * this is a timer for the redeem points button, the redeem options method will only run
+     * once a day. After that the button can be clicked but will not run redeem points.
+     */
     public void pointsDayTimer(){
         Calendar calendar = Calendar.getInstance();
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -126,6 +144,7 @@ public class Rewards extends AppCompatActivity{
         }
     }
 
+    //random number generator
     public String ranInt(){
         Random ran = new Random();
         int r1 = ran.nextInt(4)+1;
@@ -133,7 +152,12 @@ public class Rewards extends AppCompatActivity{
         return random;
     }
 
-    //getRecipe retrieves a recipe if user has points, recipe is randomised using randomInt
+    /**
+     * get recipe retrieves recipes from the database and stores it into the recipe object to be
+     * displayed in the text view. 50 points are then subtracted from the user if succesfully
+     * performed.
+     * @param view
+     */
     public void getRecipe(View view){
         ranInt();
             recipesRef

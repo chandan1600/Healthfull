@@ -2,11 +2,9 @@ package com.example.healthfull.RewardsSystem;
 
 /**
  * @author Chandan Aulakh
- * RecipeObject serves as a class for storing the data gained from a document snapshot in
- * {@link Rewards} class.
- * This data in the variables is then displayed as a string in textView on the app
- * The app has basic private variables for id, ingredients, name and recipe for a document
- * in the recipes collection.
+ * RecipeObject serves as a class for storing the data gained from a document snapshot
+ * It is then used to display the data throught text view
+ * used by {@link Rewards} class.
  */
 public class RecipeObject {
     private String id;
@@ -14,11 +12,8 @@ public class RecipeObject {
     private String name;
     private String recipe;
 
-    /**
-     * default constructor
-     */
+    //public constructor
     public RecipeObject(){
-        //public constructor
     }
 
     public RecipeObject(String id, String ingredients, String name, String recipe){
@@ -28,6 +23,7 @@ public class RecipeObject {
         this.recipe=recipe;
     }
 
+    //getters for variables
     public String getId() {
         return id;
     }

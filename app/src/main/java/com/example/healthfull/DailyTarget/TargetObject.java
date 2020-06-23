@@ -5,16 +5,14 @@ package com.example.healthfull.DailyTarget;
  * @author Chandan Aulakh
  * basic target Object to serve as input method into Firestore for {@link DailyTarget} class
  * has two private variables for water and food targets
- * This class is used as a template to store data retrieved from user
+ * This class is used as a template to store data and diplay retrived data
  */
 public class TargetObject {
 
     private String waterTarget;
     private String foodTarget;
 
-    /**
-     * default constructor
-     */
+    //public constructor
     public TargetObject(){
 
     }
@@ -24,6 +22,7 @@ public class TargetObject {
         this.foodTarget = foodTarget;
     }
 
+    //getters for the variables
     public String getWaterTarget() {
         return waterTarget;
     }

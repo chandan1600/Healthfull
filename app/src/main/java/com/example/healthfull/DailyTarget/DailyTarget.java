@@ -18,40 +18,34 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * @author Chandan Aulakh
- * Daily Targets class is for adding food and water targets to firestore database
- * This class also shows a record of all targets entered per user
- * There is an Oncreate method which finds the id of textView and editText to link XML to Class
- * There is an instance of Firebase which is retrived to ineract with firestore database
+ * Daily Target class adds food and water target to database and retrieves targets from database
  */
 public class DailyTarget extends AppCompatActivity {
 
     private static final String TAG = "DailyTarget";//to log errors
 
-    private EditText editTextWaterTarget;//water target entry
-    private EditText editTextFoodTarget;//food target entry
-    private TextView textViewTarget;//display for targets
+    //variables for xml components
+    private EditText editTextWaterTarget;
+    private EditText editTextFoodTarget;
+    private TextView textViewTarget;
 
     //Firebase connection made and reference to "users" collection established
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference addTargetDoc = db.collection("users");
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_target);
-        //linking id variable
+        //connecting text view and edit text to variables
         editTextWaterTarget = findViewById(R.id.edit_textWaterTarget);
         editTextFoodTarget = findViewById(R.id.edit_textFoodTarget);
         textViewTarget = findViewById(R.id.textView_Targets);
     }
 
     /**
-     * addFoodWaterTarget
-     * takes input from user through app and then passes it as a string to save into
-     * the firebase using a custom class at {@link TargetObject}
-     * A toast is released if the target is saved successfully
-     * A log is also made if the method is successful
+     * retrieves target info from text boxes and is processed into target object class
+     * this is then stored in a sub-collection of the user. A toast is released.
      * @param view
      */
     public void addFoodWaterTarget(View view){
@@ -66,12 +60,9 @@ public class DailyTarget extends AppCompatActivity {
     }
 
     /**
-     * loadTarget
-     * This method navigates to the "targets" subc-ollection within a user document
-     * It retrieves all documents(previous targets) from the "targets" sub-collection
-     * A snapshot of the document is passed and is looped through to collect data
-     * Data is then stored into variable and displayed through text view as a string
-     * A toast is released on the screen if the target is loaded successfully
+     * load target performs snapshot of all targets in targets sub-collection for a user
+     * returns fields and assigns them to the target object which is then displayed in
+     * textView.
      * @param view
      */
     public void loadTarget(View view){

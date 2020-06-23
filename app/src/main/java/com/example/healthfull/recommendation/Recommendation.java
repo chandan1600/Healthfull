@@ -16,6 +16,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Random;
 
+/**
+ *  @author Chandan Aulakh
+ *  Recommendation class retrieves a random food from the database to offer as a recommendation
+ *  to the user for a food to eat.
+ */
+
 public class Recommendation extends AppCompatActivity {
 
     private static String random;
@@ -31,6 +37,7 @@ public class Recommendation extends AppCompatActivity {
         recText = findViewById(R.id.recText);
     }
 
+    //random number is generated
     public String randomNum(){
         Random rnd = new Random();
         int r1 = rnd.nextInt(4)+1;
@@ -38,6 +45,11 @@ public class Recommendation extends AppCompatActivity {
         return random;
     }
 
+    /**
+     * retrieves recommendation from the database to offer to the user using a snapshot
+     * places info into recommendation object, where it is displayed in text view
+     * @param view
+     */
     public void getRec(View view){
         randomNum();
         recRef.whereEqualTo("id", random)

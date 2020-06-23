@@ -1,5 +1,12 @@
 package com.example.healthfull.recommendation;
 
+import com.example.healthfull.DailyTarget.DailyTarget;
+
+/**
+ * @author Chandan Aulakh
+ * basic recommendation object class that is used by {@link Recommendation}
+ * Used to store database information for presentation in dispplay field
+ */
 public class RecObject {
 
     private String name;
@@ -8,6 +15,7 @@ public class RecObject {
     private String fat;
     private String serving_size;
 
+    //public constructor
     public RecObject(){
 
     }
@@ -20,6 +28,7 @@ public class RecObject {
         this.serving_size =serving_size;
     }
 
+    //getters for the variables
     public String getName() {
         return name;
     }
