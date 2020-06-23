@@ -13,6 +13,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="welcome user."
+        android:textAllCaps="true"
         android:textColor="#000000"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +37,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ProgressBar
+                android:id="@+id/TopBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@id/rewardButton" />
+
             <Button
                 android:id="@+id/rewardButton"
                 android:layout_width="fill_parent"
@@ -43,7 +53,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:backgroundTint="#F6F5F5"
                 android:fontFamily="sans-serif-light"
                 android:text="rewards"
@@ -61,9 +71,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintBottom_toTopOf="@+id/buttonGoal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +85,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/main_addwater_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,8 +99,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:backgroundTint="#F6F5F5"
                 android:fontFamily="sans-serif-light"
                 android:text="goal"
@@ -102,33 +114,23 @@
 
             <Button
                 android:id="@+id/nutriButton"
-                android:layout_width="371dp"
-                android:layout_height="54dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/cardview_light_background"
-                android:text="See Nutrition Info"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.421"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/foodEntriesTextView" />
-
-            <TextView
-                android:id="@+id/waterEnteriesTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="#F6F5F5"
                 android:fontFamily="sans-serif-light"
-                android:text="water entries"
+                android:text="see nutrition info"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/waterEntryProgressBar"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@id/main_addwater_progressbar"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.421"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goalsProgressBar" />
+                app:layout_constraintTop_toBottomOf="@+id/viewALLbar" />
 
             <ProgressBar
                 android:id="@+id/waterEntryProgressBar"
@@ -136,54 +138,102 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/foodEntriesTextView"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/main_viewentries_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/waterEnteriesTextView"/>
-
-            <TextView
-                android:id="@+id/foodEntriesTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-light"
-                android:text="food entries"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/waterEntryProgressBar" />
+                app:layout_constraintTop_toBottomOf="@+id/main_addwater_button" />
 
             <Button
                 android:id="@+id/main_viewentries_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/view_all"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="#F6F5F5"
+                android:fontFamily="sans-serif-light"
+                android:text="view all entries"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/viewALLbar"
                 app:layout_constraintEnd_toEndOf="@+id/waterEntryProgressBar"
                 app:layout_constraintTop_toBottomOf="@+id/waterEntryProgressBar" />
 
+            <ProgressBar
+                android:id="@+id/viewALLbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/main_viewentries_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nutriButton" />
+
             <Button
                 android:id="@+id/main_addwater_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_water"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="#F6F5F5"
+                android:fontFamily="sans-serif-light"
+                android:text="add water"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/waterEntryProgressBar"
                 app:layout_constraintEnd_toEndOf="@+id/goalsProgressBar"
                 app:layout_constraintTop_toBottomOf="@+id/goalsProgressBar" />
 
             <ProgressBar
                 android:id="@+id/main_addwater_progressbar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/main_addwater_button"
-                app:layout_constraintEnd_toEndOf="@+id/main_addwater_button"
-                app:layout_constraintStart_toStartOf="@+id/main_addwater_button"
-                app:layout_constraintTop_toTopOf="@+id/main_addwater_button" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@id/ButtonRedeem"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nutriButton" />
+
+            <Button
+                android:id="@+id/ButtonRedeem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="#F6F5F5"
+                android:fontFamily="sans-serif-light"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:text="recommendation"
+                app:layout_constraintTop_toBottomOf="@id/main_addwater_progressbar"/>
+
+            <ProgressBar
+                android:id="@+id/bottomBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/ButtonRedeem" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -219,8 +269,8 @@
         android:layout_height="100dp"
         android:layout_marginBottom="16dp"
         android:background="#00FFFFFF"
-        android:tint="#000000"
         android:scaleType="fitStart"
+        android:tint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/galleryButton"
         app:layout_constraintStart_toEndOf="@+id/main_profileButton"

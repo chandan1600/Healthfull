@@ -45,7 +45,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="redeemPoints"
+                android:id="@+id/redeemButton"
                 android:text="redeem points" />
 
             <Button
