@@ -34,10 +34,19 @@ public class GalleryGridView extends AppCompatActivity {
         titles.add("");
         titles.add("");
         titles.add("");
+        titles.add("");
+        titles.add("");
+        titles.add("");
+        titles.add("");
 
+        images.add(R.drawable.fruitsalad);
         images.add(R.drawable.pie);
         images.add(R.drawable.juice);
         images.add(R.drawable.omelette);
+        images.add(R.drawable.bread);
+        images.add(R.drawable.eggs);
+        images.add(R.drawable.friedrice);
+
 
         adapter = new Adapter(this, titles, images);
 
