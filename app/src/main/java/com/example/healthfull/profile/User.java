@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -159,7 +160,7 @@ public class User {
 
                             List<User> friends = new ArrayList<>();
 
-                            if (friendRefs == null) {
+                            if (friendRefs == null || friendRefs.isEmpty()) {
                                 onDoneListener.onSuccess(new ArrayList<>());
                                 return;
                             }
@@ -230,7 +231,7 @@ public class User {
 
                             List<User> clients = new ArrayList<>();
 
-                            if (clientRefs == null) {
+                            if (clientRefs == null || clientRefs.isEmpty()) {
                                 // return empty list of clients
                                 onDoneListener.onSuccess(new ArrayList<>());
                                 return;
@@ -280,23 +281,23 @@ public class User {
         GetClients(trainer.getFirebaseUser().getId(), onDoneListener);
     }
 
-//        public static void GetUsers(String username, OnDoneListener<List<User>> onDoneListener) {
-//        FirebaseFirestore
-//                .getInstance()
-//                .collection("users")
-//                .whereEqualTo("name", username)
-//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot q : task.getResult()) {
-//                        User user = new User();
-//                        user.setName(q.getData().get("name").toString());
-//                    }
-//                } else {
-//                    onDoneListener.onFailure(task.getException().getMessage());
-//                }
-//            }
-//        });
-//    }
+        public static void GetUsers(String username, OnDoneListener<List<User>> onDoneListener) {
+        FirebaseFirestore
+                .getInstance()
+                .collection("users")
+                .whereEqualTo("name", username)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot q : task.getResult()) {
+                        User user = new User();
+                        user.setName(q.getData().get("name").toString());
+                    }
+                } else {
+                    onDoneListener.onFailure(task.getException().getMessage());
+                }
+            }
+        });
+    }
 }
