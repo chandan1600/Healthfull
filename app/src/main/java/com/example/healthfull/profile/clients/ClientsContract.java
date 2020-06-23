@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthfull.profile.User;
 import com.example.healthfull.util.MVPContract;
 
+import java.util.List;
+
 /**
  * ClientsContract interface declares what methods are required across the MVP architectural
  * activity
@@ -30,13 +32,14 @@ public interface ClientsContract extends MVPContract {
      * Methods the interactor must implement to interact with the model(s)
      */
     interface Interactor {
-        void performClientsLoad();
+        void performClientsLoad(String trainerId);
     }
 
     /**
      * Callback interface, from the Interactor to the Presenter
      */
     interface onDoneCallback {
-
+        void onClientsLoadSuccess(List<User> clientList);
+        void onClientsLoadFailure(String message);
     }
 }

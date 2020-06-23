@@ -61,6 +61,13 @@ public class FriendsFragment extends Fragment implements FriendsContract.View {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.VISIBLE);
+        presenter.loadFriends();
+    }
+
+    @Override
     public void onFriendsLoadSuccess(RecyclerView.Adapter adapter) {
         friendsRecyclerView.setAdapter(adapter);
         progressBar.setVisibility(View.INVISIBLE);
