@@ -31,4 +31,7 @@
     <string name="trainer_email_address">Trainer\'s email address</string>
     <string name="tap_here_to_search_for_a_trainer">Tap here to search for a trainer</string>
     <string name="tap_here_to_accept_clients">Tap here to accept clients</string>
+    <string name="msg_token_fmt">InstanceID Token: %s</string>
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+    <string name="fcm_message">Daily reminder from HealthFull App</string>
 </resources>

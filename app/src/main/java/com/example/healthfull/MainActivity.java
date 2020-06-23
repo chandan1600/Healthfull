@@ -2,6 +2,7 @@ package com.example.healthfull;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthfull.DailyTarget.DailyTarget;
@@ -23,8 +25,21 @@ import com.example.healthfull.login.LoginActivity;
 import com.example.healthfull.profile.ProfileActivity;
 import com.example.healthfull.recommendation.Recommendation;
 import com.example.healthfull.search_nutri.NutritionInfo;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.healthfull.entries.NewFoodEntryActivity;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
@@ -48,6 +63,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     ProgressBar addWaterProgressBar;
     Button addWaterButton;
     Button recommendation;
+
+    private FirebaseFirestore mFirebaseFirestore = FirebaseFirestore.getInstance();
+    private FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private CollectionReference mCollectionReference = mFirebaseFirestore.collection("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +168,63 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 startActivity(intent);
             }
         });
+
+        if(mFirebaseUser != null) {
+            final String uid = mFirebaseUser.getUid();
+
+            FirebaseInstanceId.getInstance().getInstanceId()
+                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                        @Override
+
+
+
+                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "getInstanceId failed", task.getException());
+                                return;
+                            }
+
+
+                            // Get new Instance ID token
+                            String token = task.getResult().getToken();
+
+                            // Log and toast
+                            String msg = getString(R.string.msg_token_fmt, token);
+                            Log.d(TAG, msg);
+
+                            Map<String, String> userInfo = new HashMap<>();
+                            userInfo.put("email", mFirebaseUser.getEmail());
+                            userInfo.put("firebase_instance_id", token);
+
+                            mCollectionReference.document(uid).set(userInfo, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                            CollectionReference mCollectionReference2 = FirebaseFirestore.getInstance().collection("id-collections");
+                            Map<String, Boolean> user_id = new HashMap<>();
+                            user_id.put(uid, true);
+                            mCollectionReference2.document("user-ids").set(user_id, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                            //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 
     @Override
