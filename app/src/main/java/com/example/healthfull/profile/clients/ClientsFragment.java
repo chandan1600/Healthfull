@@ -1,5 +1,6 @@
 package com.example.healthfull.profile.clients;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfull.R;
+import com.example.healthfull.entries.ViewEntriesActivity;
 import com.example.healthfull.profile.User;
 
 public class ClientsFragment extends Fragment implements ClientsContract.View {
@@ -23,6 +25,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     private ProgressBar progressBar;
     private CardView addNewClientsCard;
+    private CardView addNewTrainerCard;
     private RecyclerView clientsRecyclerView;
     private LinearLayoutManager clientsLayoutManager;
 
@@ -38,22 +41,58 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
         presenter = new ClientsPresenter(this);
 
+        progressBar = view.findViewById(R.id.clients_progressbar);
+        progressBar.setVisibility(View.VISIBLE);
 
+        addNewClientsCard = view.findViewById(R.id.clients_addnewclient_card);
+        addNewClientsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext().getApplicationContext(), NewClientActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        addNewTrainerCard = view.findViewById(R.id.clients_addnewtrainer_card);
+        addNewTrainerCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext().getApplicationContext(), NewTrainerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        clientsRecyclerView = view.findViewById(R.id.clients_recyclerview);
+        clientsRecyclerView.setHasFixedSize(true);
+
+        clientsLayoutManager = new LinearLayoutManager(getContext());
+        clientsRecyclerView.setLayoutManager(clientsLayoutManager);
+
+        presenter.loadClients();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.VISIBLE);
+        presenter.loadClients();
     }
 
     @Override
     public void onClientsLoadSuccess(RecyclerView.Adapter adapter) {
-
+        clientsRecyclerView.setAdapter(adapter);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onClientsLoadFailure(String message) {
-
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void viewEntriesForUser(User user) {
-
+        Intent intent = new Intent(getContext().getApplicationContext(), ViewEntriesActivity.class);
+        intent.putExtra("user", user.getFirebaseUser().getId());
+        startActivity(intent);
     }
 }

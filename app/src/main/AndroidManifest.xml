@@ -36,6 +36,8 @@
             android:noHistory="true" />
         <activity android:name=".entries.ViewEntriesActivity" />
         <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".profile.clients.NewClientActivity" />
+        <activity android:name=".profile.clients.NewTrainerActivity" />
         <activity android:name=".profile.friends.NewFriendActivity" />
         <activity android:name=".gallery.GalleryGridView" />
         <activity android:name=".search_nutri.NutritionInfo" />

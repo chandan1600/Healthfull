@@ -1,4 +1,4 @@
-package com.example.healthfull.profile.friends;
+package com.example.healthfull.profile.clients;
 
 import androidx.annotation.NonNull;
 
@@ -11,17 +11,16 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class NewFriendInteractor implements NewFriendContract.Interactor {
+public class NewClientInteractor implements NewClientContract.Interactor {
 
-    private NewFriendContract.onDoneCallback onDoneCallback;
+    private NewClientContract.onDoneCallback onDoneCallback;
 
-    public NewFriendInteractor(NewFriendContract.onDoneCallback onDoneCallback) {
+    public NewClientInteractor(NewClientContract.onDoneCallback onDoneCallback) {
         this.onDoneCallback = onDoneCallback;
     }
+
 
     @Override
     public void performSearch(String email) {
@@ -31,7 +30,13 @@ public class NewFriendInteractor implements NewFriendContract.Interactor {
                 if (user.getFirebaseUser().getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                     onDoneCallback.onSearchFailure("That's you!");
                 } else {
-                    onDoneCallback.onSearchSuccess(user, true);
+                    boolean isAddable = false;
+
+                    if (user.getTrainer().getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        isAddable = true;
+                    }
+
+                    onDoneCallback.onSearchSuccess(user, isAddable);
                 }
             }
 
@@ -44,7 +49,9 @@ public class NewFriendInteractor implements NewFriendContract.Interactor {
 
     @Override
     public void performAddUser(User user) {
-        User.GetFriends(new OnDoneListener<List<User>>() {
+        User.GetClients(
+                FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                new OnDoneListener<List<User>>() {
             @Override
             public void onSuccess(List<User> users) {
 
@@ -58,10 +65,10 @@ public class NewFriendInteractor implements NewFriendContract.Interactor {
 
                 users.add(user);
 
-                List<DocumentReference> friendRefs = new ArrayList<>();
+                List<DocumentReference> clientRefs = new ArrayList<>();
 
                 for (User u : users) {
-                    friendRefs.add(u.getFirebaseUser());
+                    clientRefs.add(u.getFirebaseUser());
                 }
 
                 // add friend
@@ -69,14 +76,14 @@ public class NewFriendInteractor implements NewFriendContract.Interactor {
                         .getInstance()
                         .collection("users")
                         .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .update("friends", friendRefs)
+                        .update("clients", clientRefs)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     onDoneCallback.onAddSuccess();
                                 } else {
-                                    onDoneCallback.onAddFailure("Failed to add friend");
+                                    onDoneCallback.onAddFailure("Failed to add client");
                                 }
                             }
                         });
@@ -87,5 +94,21 @@ public class NewFriendInteractor implements NewFriendContract.Interactor {
                 onDoneCallback.onAddFailure(message);
             }
         });
+
+//        FirebaseFirestore
+//                .getInstance()
+//                .collection("users")
+//                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                .update("trainer", user.getFirebaseUser())
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            onDoneCallback.onAddSuccess();
+//                        } else {
+//                            onDoneCallback.onAddFailure("Failed to request trainer");
+//                        }
+//                    }
+//                });
     }
 }

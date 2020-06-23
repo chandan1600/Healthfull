@@ -23,7 +23,7 @@ public interface NewFriendContract extends MVPContract {
      */
     interface Presenter {
         void search(String email);
-        void addFriend(User user);
+        void addUser(User user);
     }
 
     /**
@@ -31,7 +31,7 @@ public interface NewFriendContract extends MVPContract {
      */
     interface Interactor {
         void performSearch(String email);
-        void performAddFriend(User user);
+        void performAddUser(User user);
     }
 
     /**

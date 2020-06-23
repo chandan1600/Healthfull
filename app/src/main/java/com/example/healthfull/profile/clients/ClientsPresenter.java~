@@ -38,6 +38,6 @@ public class ClientsPresenter implements ClientsContract.Presenter, ClientsContr
 
     @Override
     public void onClientsLoadFailure(String message) {
-        view.onClientsLoadFailure(message);
+        view.onClientLoadFailure(message);
     }
 }

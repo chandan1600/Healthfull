@@ -1,4 +1,4 @@
-package com.example.healthfull.profile.friends;
+package com.example.healthfull.profile.clients;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,63 +15,64 @@ import androidx.cardview.widget.CardView;
 import com.example.healthfull.R;
 import com.example.healthfull.profile.User;
 
-public class NewFriendActivity extends AppCompatActivity implements NewFriendContract.View {
+public class NewClientActivity extends AppCompatActivity implements NewClientContract.View {
 
-    private NewFriendContract.Presenter presenter;
+    NewClientContract.Presenter presenter;
 
     private EditText searchEditText;
     private Button searchButton;
     private ProgressBar searchProgressBar;
 
-    private CardView newFriendCard;
-    private TextView newFriendName;
-    private Button newFriendAddButton;
-    private ProgressBar newFriendAddProgressBar;
+    private CardView newClientCard;
+    private TextView newClientName;
+    private Button newClientAddButton;
+    private ProgressBar newClientAddProgressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newfriend);
 
-        setTitle("Add New Friends");
+        setTitle("Add a New Client");
 
-        presenter = new NewFriendPresenter(this);
+        presenter = new NewClientPresenter(this);
 
         searchEditText = findViewById(R.id.newfriend_search_query);
         searchButton = findViewById(R.id.newfriend_search_button);
         searchProgressBar = findViewById(R.id.newfriend_progressbar);
 
-        newFriendCard = findViewById(R.id.newfriend_friend_card);
-        newFriendName = findViewById(R.id.newfriend_friend_name);
-        newFriendAddButton = findViewById(R.id.newfriend_friend_add_button);
-        newFriendAddProgressBar = findViewById(R.id.newfriend_friend_progressbar);
+        newClientCard = findViewById(R.id.newfriend_friend_card);
+        newClientName = findViewById(R.id.newfriend_friend_name);
+        newClientAddButton = findViewById(R.id.newfriend_friend_add_button);
+        newClientAddProgressBar = findViewById(R.id.newfriend_friend_progressbar);
+
+        searchEditText.setHint(R.string.client_email_address);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.search(searchEditText.getText().toString());
-                newFriendCard.setVisibility(View.INVISIBLE);
+                newClientCard.setVisibility(View.INVISIBLE);
                 searchProgressBar.setVisibility(View.VISIBLE);
             }
         });
-
     }
 
     @Override
     public void onSearchSuccess(User user, boolean addable) {
-        newFriendName.setText(user.getName());
-        newFriendAddButton.setOnClickListener(new View.OnClickListener() {
+        newClientName.setText(user.getName());
+        newClientAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newFriendAddButton.setEnabled(false);
-                newFriendAddProgressBar.setVisibility(View.VISIBLE);
+                newClientAddButton.setEnabled(false);
+                newClientAddProgressBar.setVisibility(View.VISIBLE);
                 presenter.addUser(user);
             }
         });
 
-        newFriendAddButton.setText(getString(R.string.add));
-        newFriendAddButton.setEnabled(true);
-        newFriendCard.setVisibility(View.VISIBLE);
+        newClientAddButton.setText(getString(R.string.add));
+        newClientAddButton.setEnabled(true);
+        newClientCard.setVisibility(View.VISIBLE);
         searchProgressBar.setVisibility(View.INVISIBLE);
     }
 
@@ -83,14 +84,14 @@ public class NewFriendActivity extends AppCompatActivity implements NewFriendCon
 
     @Override
     public void onAddSuccess() {
-        newFriendAddProgressBar.setVisibility(View.INVISIBLE);
-        newFriendAddButton.setText("ADDED");
+        newClientAddProgressBar.setVisibility(View.INVISIBLE);
+        newClientAddButton.setText(R.string.added);
     }
 
     @Override
     public void onAddFailure(String message) {
-        newFriendAddProgressBar.setVisibility(View.INVISIBLE);
+        newClientAddProgressBar.setVisibility(View.INVISIBLE);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-        newFriendAddButton.setEnabled(true);
+        newClientAddButton.setEnabled(true);
     }
 }

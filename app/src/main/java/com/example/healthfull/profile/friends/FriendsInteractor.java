@@ -7,10 +7,10 @@ import java.util.List;
 
 public class FriendsInteractor implements FriendsContract.Interactor {
 
-    private FriendsContract.onFriendsLoadCallback view;
+    private FriendsContract.onFriendsLoadCallback callback;
 
     public FriendsInteractor(FriendsContract.onFriendsLoadCallback view) {
-        this.view = view;
+        this.callback = view;
     }
 
     @Override
@@ -18,12 +18,12 @@ public class FriendsInteractor implements FriendsContract.Interactor {
         User.GetFriends(new OnDoneListener<List<User>>() {
             @Override
             public void onSuccess(List<User> friends) {
-                view.onFriendsLoadSuccess(friends);
+                callback.onFriendsLoadSuccess(friends);
             }
 
             @Override
             public void onFailure(String message) {
-                view.onFriendsLoadFailure(message);
+                callback.onFriendsLoadFailure(message);
             }
         });
     }

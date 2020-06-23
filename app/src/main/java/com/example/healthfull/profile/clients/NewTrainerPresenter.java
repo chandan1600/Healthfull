@@ -1,15 +1,15 @@
-package com.example.healthfull.profile.friends;
+package com.example.healthfull.profile.clients;
 
 import com.example.healthfull.profile.User;
 
-public class NewFriendPresenter implements NewFriendContract.Presenter, NewFriendContract.onDoneCallback {
+public class NewTrainerPresenter implements NewTrainerContract.Presenter, NewTrainerContract.onDoneCallback {
 
-    private NewFriendContract.View view;
-    private NewFriendContract.Interactor interactor;
+    private NewTrainerContract.View view;
+    private NewTrainerContract.Interactor interactor;
 
-    public NewFriendPresenter(NewFriendContract.View view) {
+    public NewTrainerPresenter(NewTrainerContract.View view) {
         this.view = view;
-        this.interactor = new NewFriendInteractor(this);
+        this.interactor = new NewTrainerInteractor(this);
     }
 
     @Override
