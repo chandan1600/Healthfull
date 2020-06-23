@@ -1,19 +1,11 @@
 package com.example.healthfull.RewardsSystem;
 
 
-/**
- * @author Chandan Aulakh
- *Rewards class has 3 main functions: calculating goal calories, redeeming points and getting recipes.
- * The OnCreate links using find id so that  XML and java class may interact when user input
- * is given.
- * The class is responsible for storing user points in the firestore database and
- * to retrieve a random recipe for when the user chooses to redeem a recipe from the database.
- */
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +37,7 @@ public class Rewards extends AppCompatActivity{
     private EditText textWeight;
     private EditText textHeight;
     private EditText textAge;
+    private Button buttonRedeem;
 
     //instance of firebase retrieved, reference to "recipes" collection and reference to "u1" document
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -60,35 +53,16 @@ public class Rewards extends AppCompatActivity{
         textWeight = findViewById(R.id.edit_textWeight);
         textHeight = findViewById(R.id.edit_textHeight);
         textAge = findViewById(R.id.edit_textAge);
+        buttonRedeem = findViewById(R.id.redeemButton);
 
-        findViewById(R.id.redeemButton).setOnClickListener(new View.OnClickListener() {
+        buttonRedeem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar calendar = Calendar.getInstance();
-                int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-                SharedPreferences settings = getSharedPreferences("PREFS",0);
-                int lastDay = settings.getInt("day",0);
-
-                if(lastDay!= currentDay){
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putInt("day", currentDay);
-                    editor.commit();
-
-                    redeemPoints();
-                }
+                pointsDayTimer();
             }
         });
     }
 
-    /**
-     * setGoalCalories
-     * takes user input for height, weight and age to calculate goal calories required based
-     * off the Harris-Benedict formula.
-     * A toast is released upon successful calculation of the goal calories
-     * The goalCalorie is then returned as a double value
-     * @param view
-     * @return
-     */
     public double setGoalCalories(View view){
         String inputWeight = textWeight.getText().toString();
         String inputHeight = textHeight.getText().toString();
@@ -115,15 +89,6 @@ public class Rewards extends AppCompatActivity{
         userPoint.update("points", FieldValue.increment(-50));
     }
 
-    /**
-     * redeemPoints
-     * This method uses the compareCalories method.
-     * If compareCalories returns true, the method will increment user "points" field by 10 points
-     * A toast will be released on successful increment alongside a Log for success
-     * If compareCalories returns false, the user will receive a toast message for failure.
-     * The log will also record that points were not incremented
-     * @param
-     */
     //user clicks to redeem points for the day, if calories are higher than goal calories
     public void redeemPoints(){
         if(compareCalories()) {
@@ -144,25 +109,33 @@ public class Rewards extends AppCompatActivity{
         }
     }
 
+    public void pointsDayTimer(){
+        Calendar calendar = Calendar.getInstance();
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        SharedPreferences settings = getSharedPreferences("PREFS",0);
+        int lastDay = settings.getInt("day",0);
+
+        if(lastDay!= currentDay){
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("day", currentDay);
+            editor.commit();
+            redeemPoints();
+        }
+        else{
+            Toast.makeText(Rewards.this, "you have redeemed today's points!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public String ranInt(){
         Random ran = new Random();
         int r1 = ran.nextInt(4)+1;
         random = String.valueOf(r1);
         return random;
     }
-    /**
-     * a reference to the recipes collection is made
-     * a query is used to return all recipes with the "random" id number.
-     * The number of recipes is already known, therefore random range is controlled
-     * After retrieving the document a snapshot is taken and the data is looped through.
-     * The data is then assigned to variables of the {@link } class
-     * These variables are then assigned to a string and displayed through textView
-     * On success, a toast is released with "recipe loaded"
-     * At the end 50 points are decremented of the user, using subtractPoints method.
-     * @param view
-     */
+
     //getRecipe retrieves a recipe if user has points, recipe is randomised using randomInt
     public void getRecipe(View view){
+        ranInt();
             recipesRef
                     .whereEqualTo("id",random)
                     .get()

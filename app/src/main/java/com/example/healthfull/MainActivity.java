@@ -21,6 +21,7 @@ import com.example.healthfull.entries.ViewEntriesActivity;
 import com.example.healthfull.gallery.Gallery;
 import com.example.healthfull.login.LoginActivity;
 import com.example.healthfull.profile.ProfileActivity;
+import com.example.healthfull.recommendation.Recommendation;
 import com.example.healthfull.search_nutri.NutritionInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.healthfull.entries.NewFoodEntryActivity;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     Button viewEntriesButton;
     ProgressBar addWaterProgressBar;
     Button addWaterButton;
+    Button recommendation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +144,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             }
         });
 
+        recommendation = findViewById(R.id.ButtonRedeem);
+        recommendation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Recommendation.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
